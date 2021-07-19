@@ -38,7 +38,14 @@ class Controller(object):
             Called by ```if __name__ == '__main__':``` """
         log.debug( 'starting process_requests()' )
         arcvr = Archiver()
+        # -- check for new file -----------------
         exist_check_result = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
+        if exist_check_result == False:
+            message = 'no annex requests found; quitting\n\n'
+            log.info( message )
+            sys.exit( message )
+        # -- archive original
+        # datetime_stamp = arcvr.make_datetime_stamp( date_stamp.datetime.now() )
 
         # unicode_src_data = self.file_check()
         # if unicode_src_data:

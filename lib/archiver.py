@@ -36,6 +36,12 @@ class Archiver:
         log.debug( f'chk_rslt, ``{chk_rslt}``' )
         return chk_rslt
 
+    def make_datetime_stamp( self, datetime_obj ):
+        """ Creates a a time-stamp string for the files to be archived, like '2021-07-13T13-41-39' """
+        iso_datestamp = datetime_obj.isoformat()
+        custom_datestamp = iso_datestamp[0:19].replace( ':', '-' )  # colons to slashes to prevent filename issues
+        return str( custom_datestamp )
+
     # def file_check( self ):
     #     """ Sees if there is a file waiting; returns unicode-text if so.
     #         Called by process_requests() """
