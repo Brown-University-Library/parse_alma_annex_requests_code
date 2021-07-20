@@ -45,7 +45,8 @@ class Controller(object):
             log.info( message )
             sys.exit( message )
         # -- archive original
-        # datetime_stamp = arcvr.make_datetime_stamp( date_stamp.datetime.now() )
+        datetime_stamp = arcvr.make_datetime_stamp( datetime.datetime.now() ); assert type(datetime_stamp) == str
+        copy_original_result = arcvr.copy_original_to_archives( date_stamp )
 
         # unicode_src_data = self.file_check()
         # if unicode_src_data:
