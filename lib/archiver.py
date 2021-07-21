@@ -1,4 +1,4 @@
-import logging, os
+import logging, os, pathlib, shutil, sys
 
 
 ## settings from env/activate
@@ -41,6 +41,35 @@ class Archiver:
         iso_datestamp = datetime_obj.isoformat()
         custom_datestamp = iso_datestamp[0:19].replace( ':', '-' )  # colons to slashes to prevent filename issues
         return str( custom_datestamp )
+
+    def copy_original_to_archives( self, source_file_path, destination_dir_path ):
+        copy_result = False
+        try:
+            assert type(source_file_path) == str
+            assert type(destination_dir_path) == str
+            source_path_obj = pathlib.Path( source_file_path )
+            source_filename = source_path_obj.name
+            shutil.copy2( source_file_path, destination_dir_path )
+            destination_filepath = f'{destination_dir_path}/{source_filename}'
+            log.debug( f'destination_filepath, ``{destination_filepath}``' )
+            destination_path_obj = pathlib.Path( destination_filepath )
+            if destination_path_obj.exists():
+                copy_result = True
+        except:
+            log.exception( 'problem copying original to archives' )
+        log.debug( f'copy_result, ``{copy_result}``' )
+        return copy_result
+
+
+
+    # -- common
+
+    def log_and_quit( self, message ):
+        """ Exits on various errors. """
+        message = f'{message}\n\n'
+        log.info( message )
+        sys.exit( message )
+
 
     # def file_check( self ):
     #     """ Sees if there is a file waiting; returns unicode-text if so.
