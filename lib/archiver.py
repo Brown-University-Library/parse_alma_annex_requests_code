@@ -60,9 +60,7 @@ class Archiver:
         log.debug( f'copy_result, ``{copy_result}``' )
         return copy_result
 
-
-
-    # -- common
+    # -- common ---------------------------------
 
     def log_and_quit( self, message ):
         """ Exits on various errors. """
@@ -70,18 +68,4 @@ class Archiver:
         log.info( message )
         sys.exit( message )
 
-
-    # def file_check( self ):
-    #     """ Sees if there is a file waiting; returns unicode-text if so.
-    #         Called by process_requests() """
-    #     try:
-    #       file_handler = open( self.PATH_TO_SOURCE_FILE )
-    #       log.info( 'annex requests found' )
-    #     except Exception, e:
-    #       message = 'no annex requests found; quitting\n\n'
-    #       log.info( message )
-    #       sys.exit( message )
-    #     utf8_data = file_handler.read()
-    #     assert type(utf8_data) == str, type(utf8_data)
-    #     data = utf8_data.decode( 'utf-8' )
-    #     return data
+## end class Archiver
