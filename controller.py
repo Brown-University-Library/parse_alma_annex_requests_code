@@ -1,4 +1,4 @@
-import datetime, logging, os, pprint, shutil, smtplib, string, sys
+import datetime, logging, os, pprint, shutil, smtplib, sys
 # from email.Header import Header
 from email.mime.text import MIMEText
 
@@ -38,15 +38,19 @@ class Controller(object):
             Called by ```if __name__ == '__main__':``` """
         log.debug( 'starting process_requests()' )
         arcvr = Archiver()
+
         # -- check for new file -----------------
         exist_check_result = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
         if exist_check_result == False:
-            message = 'no annex requests found; quitting\n\n'
-            log.info( message )
-            sys.exit( message )
+            arcvr.log_and_quit( 'no annex requests found; quitting' )
+
         # -- archive original
         datetime_stamp = arcvr.make_datetime_stamp( datetime.datetime.now() ); assert type(datetime_stamp) == str
         copy_original_result = arcvr.copy_original_to_archives( date_stamp )
+        if exist_check_result == False:
+            arcvr.log_and_quit( 'original file not archived; quitting' )
+
+        # -- get list of requests from file -----
 
         # unicode_src_data = self.file_check()
         # if unicode_src_data:
