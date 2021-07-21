@@ -1,1 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xb:rsExportList xmlns:xb="http://com/exlibris/urm/rep/externalsysremotestorage/xmlbeans">
+
+  <xb:rsExport>
+    <xb:requestType>PATRON_PHYSICAL</xb:requestType>
+    <xb:requestId>2400751600006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>Collections Annex</xb:library>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:call_number_type>0</xb:call_number_type>
+      <xb:permanent_call_number>QP85 .O474 2001</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>STORAGE</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>31236016575915</xb:barcode>
+    <xb:mmsId>991028935729706966</xb:mmsId>
+    <xb:itemId>2315969130006966</xb:itemId>
+    <xb:title>The quest for immortality : science at the frontiers of aging / S. Jay Olshansky and Bruce A. Carnes.</xb:title>
+    <xb:patronInfo>
+      <xb:patronName>Hzzz, Azzzzzz</xb:patronName>
+      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
+      <xb:patronEmail>azzzzzz_hzzz@brown.edu</xb:patronEmail>
+      <xb:patronAddress>Brown University Box I University Library</xb:patronAddress>
+    </xb:patronInfo>
+    <xb:shipAddress>
+      <xb:city>Providence</xb:city>
+      <xb:country>USA</xb:country>
+      <xb:line1>Library Collections Annex</xb:line1>
+      <xb:line2>10 Park Lane</xb:line2>
+      <xb:line3 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:line4 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:line5 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:postalCode>2907</xb:postalCode>
+      <xb:stateProvince>RI</xb:stateProvince>
+    </xb:shipAddress>
+    <xb:libraryCode>ANNEX</xb:libraryCode>
+    <xb:requestNote>This is just another test!</xb:requestNote>
+    <xb:bibliographicInformation>
+      <xb:author>Olshansky, Stuart Jay,</xb:author>
+      <xb:isbn>9780393048360</xb:isbn>
+      <xb:placeOfPublication>New York :</xb:placeOfPublication>
+      <xb:dateOfPublication>c2001.</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
+
+  <xb:rsExport>
+    <xb:requestType>PHYSICAL_TO_DIGITIZATION</xb:requestType>
+    <xb:requestId>2400751990006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>Collections Annex</xb:library>
+      <xb:desk>Annex Circulation Desk</xb:desk>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:call_number_type>0</xb:call_number_type>
+      <xb:permanent_call_number>RA595.B3 W38x 1990</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>STORAGE</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>31236009508147</xb:barcode>
+    <xb:mmsId>991040297339706966</xb:mmsId>
+    <xb:itemId>2317902230006966</xb:itemId>
+    <xb:title>Water supply, sanitation, and hygiene education : report of a health impact study in Mirzapur, Bangladesh / K.M.A. Aziz ... [et al.]</xb:title>
+    <xb:requestedInfo>
+      <xb:description xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:partToDigitize>This is just a test</xb:partToDigitize>
+    </xb:requestedInfo>
+    <xb:patronInfo>
+      <xb:patronName>Hzzz, Azzzzzz</xb:patronName>
+      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
+      <xb:patronEmail>azzzzzz_hzzz@brown.edu</xb:patronEmail>
+    </xb:patronInfo>
+    <xb:shipAddress>
+      <xb:city>Providence</xb:city>
+      <xb:country>USA</xb:country>
+      <xb:line1>Library Collections Annex</xb:line1>
+      <xb:line2>10 Park Lane</xb:line2>
+      <xb:line3 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:line4 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:line5 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:postalCode>2907</xb:postalCode>
+      <xb:stateProvince>RI</xb:stateProvince>
+    </xb:shipAddress>
+    <xb:libraryCode>ANNEX</xb:libraryCode>
+    <xb:digitizationDepartmentCode>DEFAULT_CIRC_DESK</xb:digitizationDepartmentCode>
+    <xb:requestNote>This is just a test</xb:requestNote>
+    <xb:bibliographicInformation>
+      <xb:author>Aziz, K. M. Ashraful.</xb:author>
+      <xb:placeOfPublication>Washington, D.C., U.S.A. :</xb:placeOfPublication>
+      <xb:dateOfPublication>c1990.</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
+
+</xb:rsExportList>
 
