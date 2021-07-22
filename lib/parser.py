@@ -1,4 +1,6 @@
 import logging, os, pathlib, sys
+
+import bs4
 from bs4 import BeautifulSoup
 
 
@@ -23,17 +25,16 @@ class Parser():
     def __init__(self):
         self.all_text = ''
         self.items = []  # bs4.element.ResultSet
-        self.current_item = None  # bs4.element.Tag
+        # self.current_item = None  # bs4.element.Tag
         self.item_text = ''
         self.xml_obj = None
         self.title = ''
         self.patron_name = ''
 
     def load_file( self, filepath ):
+        ( self.all_text, err ) = ( '', None )
         try:
             assert type( filepath ) == str
-            ( self.all_text, err ) = ( '', None )
-            self.all_text = ''
             with open( filepath, encoding='utf-8' ) as f:
                 self.all_text = f.read()
         except:
@@ -57,5 +58,22 @@ class Parser():
             log.exception( err )
         log.debug( f'self.items, ``{self.items}``' )
         return ( self.items, err )
+
+    def parse_title( self, item ):
+        ( self.title, err ) = ( '', None )
+        try:
+            assert type(item) == bs4.element.Tag
+            title_elements = item.select( 'title' )
+            assert type( title_elements ) == bs4.element.ResultSet
+            title = title_elements[0].get_text()  # only one title in item-xml
+            assert type( title ) == str
+            self.title = title
+        except:
+            err = 'problem parsing title'
+            log.exception( err )
+        log.debug( f'self.title, ``{self.title}``' )
+        return ( self.title, err )
+
+
 
 

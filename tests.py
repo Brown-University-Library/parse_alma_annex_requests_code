@@ -104,8 +104,12 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 2, len(item_list) )
         self.assertEqual( bs4.element.Tag, type(item_list[0]) )
 
-    # def test_parse_title(self):
-    #     self.assertEqual( 2, 3 )
+    def test_parse_title(self):
+        ( all_text, err ) = self.prsr.load_file( self.filepath )
+        ( item_list, err ) = self.prsr.make_item_list( all_text )
+        ( title, err ) = self.prsr.parse_title( item_list[0] )
+        self.assertTrue( 'The quest for immortality' in title )
+        self.assertEqual( None, err )
 
 
 
