@@ -42,12 +42,15 @@ class ArchiverTest( unittest.TestCase ):
         dt_result = self.arcvr.make_datetime_stamp( datetime_obj )
         self.assertEqual( '2021-07-13T14-40-49', dt_result )
 
-    # def test_copy_original_to_archives_success(self):
-    #     self.prep_copy_dirs()
-    #     source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
-    #     destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
-    #     copy_result = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path )
-    #     self.assertEqual( True, copy_result )
+    def test_copy_original_to_archives_success(self):
+        self.prep_copy_dirs()
+        datetime_stamp = '2021-07-13T14-40-49'
+        source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
+        destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
+        err = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
+        self.assertEqual( None, err )
+        self.assertTrue( 'BUL_ANNEX-foo.xml' in self.arcvr.destination_filepath )
+        self.assertTrue( datetime_stamp in self.arcvr.destination_filepath )
 
     ## -- helpers -------------------------------
 
@@ -101,8 +104,8 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 2, len(item_list) )
         self.assertEqual( bs4.element.Tag, type(item_list[0]) )
 
-    def test_parse_title(self):
-        self.assertEqual( 2, 3 )
+    # def test_parse_title(self):
+    #     self.assertEqual( 2, 3 )
 
 
 

@@ -3,5 +3,5 @@
 .hg
 .svn
 env
-test_dirs/copy_original_destination_dir/BUL_ANNEX*
+test_dirs/copy_original_destination_dir/*BUL_ANNEX*
 
