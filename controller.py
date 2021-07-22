@@ -24,7 +24,7 @@ class Controller(object):
 
     def __init__( self ):
         self.PATH_TO_SOURCE_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_SOURCE_DIRECTORY']  # to check for new files
-        # self.PATH_TO_ARCHIVES_ORIGINALS_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVES_ORIGINALS_DIRECTORY']
+        self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY']
         # self.PATH_TO_ARCHIVES_PARSED_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVES_PARSED_DIRECTORY']
         # self.PATH_TO_PARSED_ANNEX_COUNT_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_PARSED_ANNEX_COUNT_DIRECTORY']
         # self.PATH_TO_PARSED_ANNEX_DATA_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_PARSED_ANNEX_DATA_DIRECTORY']
@@ -46,9 +46,16 @@ class Controller(object):
 
         # -- archive original
         datetime_stamp = arcvr.make_datetime_stamp( datetime.datetime.now() ); assert type(datetime_stamp) == str
-        copy_original_result = arcvr.copy_original_to_archives( date_stamp )
+        copy_original_result = arcvr.copy_original_to_archives( f'{self.PATH_TO_SOURCE_DIRECTORY}/{arcvr.new_file_name}', self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY, datetime_stamp )
         if exist_check_result == False:
             arcvr.log_and_quit( 'original file not archived; quitting' )
+
+        ## dummy
+
+        # ( source_file_contents, err ) = prsr.load_file( filepath )
+        # if err:
+        #     handle the error
+
 
         # -- get list of requests from file -----
 
