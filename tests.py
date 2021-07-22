@@ -1,7 +1,9 @@
 import datetime, logging, os, sys, unittest
+import bs4
 
 sys.path.append( os.environ['ANX_ALMA__ENCLOSING_PROJECT_PATH'] )
 from parse_alma_annex_requests_code.lib.archiver import Archiver
+from parse_alma_annex_requests_code.lib.parser import Parser
 
 
 TEST_DIRS_PATH = os.environ['ANX_ALMA__TEST_DIRS_PATH']
@@ -40,12 +42,12 @@ class ArchiverTest( unittest.TestCase ):
         dt_result = self.arcvr.make_datetime_stamp( datetime_obj )
         self.assertEqual( '2021-07-13T14-40-49', dt_result )
 
-    def test_copy_original_to_archives_success(self):
-        self.prep_copy_dirs()
-        source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
-        destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
-        copy_result = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path )
-        self.assertEqual( 'success', copy_result )
+    # def test_copy_original_to_archives_success(self):
+    #     self.prep_copy_dirs()
+    #     source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
+    #     destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
+    #     copy_result = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path )
+    #     self.assertEqual( True, copy_result )
 
     ## -- helpers -------------------------------
 
@@ -76,6 +78,33 @@ class ArchiverTest( unittest.TestCase ):
                 log.exception( 'problem deleting found file' )
                 pass
         return
+
+    ## end ArchiverTest()
+
+
+class ParserTest( unittest.TestCase ):
+
+    def setUp( self ):
+        self.prsr = Parser()
+        self.filepath = f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml'
+
+    ## -- tests ---------------------------------
+
+    def test_open_file__success(self):
+        ( all_text, err ) = self.prsr.load_file( self.filepath )
+        self.assertTrue( len(all_text) > 100 )
+
+    def test_make_item_list(self):
+        ( all_text, err ) = self.prsr.load_file( self.filepath )
+        ( item_list, err ) = self.prsr.make_item_list( all_text )
+        self.assertEqual( bs4.element.ResultSet, type(item_list) )
+        self.assertEqual( 2, len(item_list) )
+        self.assertEqual( bs4.element.Tag, type(item_list[0]) )
+
+    def test_parse_title(self):
+        self.assertEqual( 2, 3 )
+
+
 
 
 
