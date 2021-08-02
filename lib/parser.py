@@ -37,10 +37,10 @@ class Parser():
             assert type( filepath ) == str
             with open( filepath, encoding='utf-8' ) as f:
                 self.all_text = f.read()
-        except:
-            err = 'problem loading source-file'
-            log.exception( err )
-        log.debug( f'self.all_text, ``{self.all_text}``' )
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'problem loading source-file, ``{err}``' )
+        log.debug( f'self.all_text, ``{self.all_text[0:100]}``' )
         return ( self.all_text, err )
 
     def make_item_list( self, all_text ):

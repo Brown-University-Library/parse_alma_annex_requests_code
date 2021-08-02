@@ -38,6 +38,7 @@ class Controller(object):
             Called by ```if __name__ == '__main__':``` """
         log.debug( 'starting process_requests()' )
         arcvr = Archiver()
+        prsr = Parser()
 
         # -- check for new file -----------------
         (exists, err) = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
@@ -54,14 +55,18 @@ class Controller(object):
         if success == False:
             raise Exception( f'Problem archiving original; see logs' )
 
-        ## dummy
-
-        # ( source_file_contents, err ) = prsr.load_file( filepath )
-        # if err:
-        #     handle the error
-
+        # -- load file --------------------------
+        ( source_file_contents, err ) = prsr.load_file( self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY, arcvr.new_file_name )
+        if err:
+            raise Exception( f'Problem loading source-file, ``{err}``' )
 
         # -- get list of requests from file -----
+        ( items, err ) = prsr.make_item_list( source_file_contents )
+        if err:
+            raise Exception( f'Problem creating items_list, ``{err}``' )
+
+
+
 
         # unicode_src_data = self.file_check()
         # if unicode_src_data:

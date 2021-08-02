@@ -104,7 +104,7 @@ class ArchiverTest( unittest.TestCase ):
                 pass
         return
 
-    ## end ArchiverTest()
+    ## end class ArchiverTest()
 
 
 class ParserTest( unittest.TestCase ):
@@ -121,20 +121,21 @@ class ParserTest( unittest.TestCase ):
 
     def test_make_item_list(self):
         ( all_text, err ) = self.prsr.load_file( self.filepath )
-        ( item_list, err ) = self.prsr.make_item_list( all_text )
-        self.assertEqual( bs4.element.ResultSet, type(item_list) )
-        self.assertEqual( 2, len(item_list) )
-        self.assertEqual( bs4.element.Tag, type(item_list[0]) )
+        ( items, err ) = self.prsr.make_item_list( all_text )
+        self.assertEqual( bs4.element.ResultSet, type(items) )
+        self.assertEqual( 5, len(items) )
+        self.assertEqual( bs4.element.Tag, type(items[0]) )
 
     def test_parse_title(self):
         ( all_text, err ) = self.prsr.load_file( self.filepath )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         ( title, err ) = self.prsr.parse_title( item_list[0] )
-        self.assertTrue( 'The quest for immortality' in title )
+        self.assertEqual( 'Education.', title )
         self.assertEqual( None, err )
 
+    ## -- helpers -------------------------------
 
-
+    ## end class ParserTest()
 
 
 if __name__ == '__main__':

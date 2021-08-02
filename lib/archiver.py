@@ -73,28 +73,6 @@ class Archiver():
         log.debug( f'success, ``{success}``; err, ``{err}``' )
         return ( success, err )
 
-
-    # def copy_original_to_archives( self, source_file_path, destination_dir_path, datetime_stamp ):
-    #     log.debug( f'source_file_path, ``{source_file_path}``' )
-    #     log.debug( f'destination_dir_path, ``{destination_dir_path}``' )
-    #     err = 'problem copying original to archives'
-    #     try:
-    #         assert type(source_file_path) == str
-    #         assert type(destination_dir_path) == str
-    #         source_path_obj = pathlib.Path( source_file_path )
-    #         source_filename = source_path_obj.name
-    #         self.destination_filepath = f'{destination_dir_path}/{datetime_stamp}__{source_filename}'
-    #         log.debug( f'self.destination_filepath, ``{self.destination_filepath}``' )
-    #         shutil.copy2( source_file_path, self.destination_filepath )
-    #         destination_path_obj = pathlib.Path( self.destination_filepath )
-    #         log.debug( f'destination_path_obj, ``{destination_path_obj}``' )
-    #         assert destination_path_obj.exists() == True
-    #         err = None
-    #     except:
-    #         log.exception( err )
-    #     log.debug( f'err, ``{err}``' )
-    #     return err
-
     # -- common ---------------------------------
 
     def log_and_quit( self, message ):

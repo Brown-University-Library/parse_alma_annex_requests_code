@@ -1,0 +1,41 @@
+  <xb:rsExport>
+    <xb:requestType>PATRON_PHYSICAL</xb:requestType>
+    <xb:requestId>2404662150006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>Rockefeller Library</xb:library>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:call_number_type>0</xb:call_number_type>
+      <xb:permanent_call_number>L11 .E17</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>STORAGE</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>31236011508853</xb:barcode>
+    <xb:mmsId>991008052689706966</xb:mmsId>
+    <xb:itemId>2332679300006966</xb:itemId>
+    <xb:title>Education.</xb:title>
+    <xb:patronInfo>
+      <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
+      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
+      <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
+      <xb:patronAddress>Brown University PO BOX I University Library- Integrated Technology Services WorkDay Location - Sciences Library</xb:patronAddress>
+    </xb:patronInfo>
+    <xb:shipAddress>
+      <xb:city>Providence</xb:city>
+      <xb:country>USA</xb:country>
+      <xb:line1>John D. Rockefeller, Jr. Library</xb:line1>
+      <xb:line2>10 Prospect Street</xb:line2>
+      <xb:line3>Box A</xb:line3>
+      <xb:line4 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:line5 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:postalCode>2912</xb:postalCode>
+      <xb:stateProvince>RI</xb:stateProvince>
+    </xb:shipAddress>
+    <xb:libraryCode>ROCK</xb:libraryCode>
+    <xb:requestNote>b-test, new-configuration, physical, 2:59pm</xb:requestNote>
+    <xb:bibliographicInformation>
+      <xb:author>Project Innovation (Organization)</xb:author>
+      <xb:issn>0013-1172</xb:issn>
+      <xb:placeOfPublication>[Boston :</xb:placeOfPublication>
+      <xb:dateOfPublication>1880-</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
