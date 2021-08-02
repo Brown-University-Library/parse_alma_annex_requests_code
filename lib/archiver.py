@@ -38,26 +38,10 @@ class Archiver():
                     log.debug( f'self.new_file_name, ``{self.new_file_name}``' )
                     break
         except Exception as e:
-            err = 'Problem checking for new file.'
-            log.exception( message )
+            err = repr(e)
+            log.exception( f'Problem checking for new file, ``{err}``' )
         log.debug( f'exists, ``{exists}``; err, ``{err}``' )
         return ( exists, err )
-
-    # def check_for_new_file(self, dir_path):
-    #     """ Checks if there is a file waiting. """
-    #     assert type(dir_path) == str
-    #     chk_rslt = False
-    #     contents = os.listdir( dir_path )
-    #     assert type(contents) == list
-    #     for item in contents:
-    #         log.debug( f'item, ``{item}``' )
-    #         if item.startswith( 'BUL_ANNEX' ):
-    #             chk_rslt = True
-    #             self.new_file_name = item
-    #             log.debug( f'self.new_file_name, ``{self.new_file_name}``' )
-    #             break
-    #     log.debug( f'chk_rslt, ``{chk_rslt}``' )
-    #     return chk_rslt
 
     def make_datetime_stamp( self, datetime_obj ):
         """ Creates a a time-stamp string for the files to be archived, like '2021-07-13T13-41-39' """
@@ -66,12 +50,14 @@ class Archiver():
         return str( custom_datestamp )
 
     def copy_original_to_archives( self, source_file_path, destination_dir_path, datetime_stamp ):
+        """ Archives original before doing anything else. """
         log.debug( f'source_file_path, ``{source_file_path}``' )
         log.debug( f'destination_dir_path, ``{destination_dir_path}``' )
-        err = 'problem copying original to archives'
+        ( success, err ) = ( False, None )
         try:
             assert type(source_file_path) == str
             assert type(destination_dir_path) == str
+            assert type(datetime_stamp) == str
             source_path_obj = pathlib.Path( source_file_path )
             source_filename = source_path_obj.name
             self.destination_filepath = f'{destination_dir_path}/{datetime_stamp}__{source_filename}'
@@ -80,11 +66,34 @@ class Archiver():
             destination_path_obj = pathlib.Path( self.destination_filepath )
             log.debug( f'destination_path_obj, ``{destination_path_obj}``' )
             assert destination_path_obj.exists() == True
-            err = None
-        except:
-            log.exception( err )
-        log.debug( f'err, ``{err}``' )
-        return err
+            success = True
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'Problem checking for new file, ``{err}``' )
+        log.debug( f'success, ``{success}``; err, ``{err}``' )
+        return ( success, err )
+
+
+    # def copy_original_to_archives( self, source_file_path, destination_dir_path, datetime_stamp ):
+    #     log.debug( f'source_file_path, ``{source_file_path}``' )
+    #     log.debug( f'destination_dir_path, ``{destination_dir_path}``' )
+    #     err = 'problem copying original to archives'
+    #     try:
+    #         assert type(source_file_path) == str
+    #         assert type(destination_dir_path) == str
+    #         source_path_obj = pathlib.Path( source_file_path )
+    #         source_filename = source_path_obj.name
+    #         self.destination_filepath = f'{destination_dir_path}/{datetime_stamp}__{source_filename}'
+    #         log.debug( f'self.destination_filepath, ``{self.destination_filepath}``' )
+    #         shutil.copy2( source_file_path, self.destination_filepath )
+    #         destination_path_obj = pathlib.Path( self.destination_filepath )
+    #         log.debug( f'destination_path_obj, ``{destination_path_obj}``' )
+    #         assert destination_path_obj.exists() == True
+    #         err = None
+    #     except:
+    #         log.exception( err )
+    #     log.debug( f'err, ``{err}``' )
+    #     return err
 
     # -- common ---------------------------------
 

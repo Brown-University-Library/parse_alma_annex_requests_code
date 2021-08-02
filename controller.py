@@ -46,11 +46,13 @@ class Controller(object):
         if exists == False:
             arcvr.log_and_quit( 'no annex requests found; quitting' )
 
-        # -- archive original
+        # -- archive original -------------------
         datetime_stamp = arcvr.make_datetime_stamp( datetime.datetime.now() ); assert type(datetime_stamp) == str
-        copy_original_result = arcvr.copy_original_to_archives( f'{self.PATH_TO_SOURCE_DIRECTORY}/{arcvr.new_file_name}', self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY, datetime_stamp )
-        if exist_check_result == False:
-            arcvr.log_and_quit( 'original file not archived; quitting' )
+        (success, err) = arcvr.copy_original_to_archives( f'{self.PATH_TO_SOURCE_DIRECTORY}/{arcvr.new_file_name}', self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY, datetime_stamp )
+        if err:
+            raise Exception( f'Problem archiving original, ``{err}``' )
+        if success == False:
+            raise Exception( f'Problem archiving original; see logs' )
 
         ## dummy
 

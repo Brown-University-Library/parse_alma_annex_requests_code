@@ -49,10 +49,30 @@ class ArchiverTest( unittest.TestCase ):
         datetime_stamp = '2021-07-13T14-40-49'
         source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
         destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
-        err = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
-        self.assertEqual( None, err )
+        ( success, err ) = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
+        self.assertTrue( success == True )
+        self.assertTrue( err == None )
         self.assertTrue( 'BUL_ANNEX-foo.xml' in self.arcvr.destination_filepath )
         self.assertTrue( datetime_stamp in self.arcvr.destination_filepath )
+
+    def test_copy_original_to_archives_error(self):
+        self.prep_copy_dirs()
+        datetime_stamp = 2
+        source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
+        destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
+        ( success, err ) = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
+        self.assertTrue( success == False )
+        self.assertEqual( 'AssertionError()', err )
+
+    # def test_copy_original_to_archives_success(self):
+    #     self.prep_copy_dirs()
+    #     datetime_stamp = '2021-07-13T14-40-49'
+    #     source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
+    #     destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
+    #     err = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
+    #     self.assertEqual( None, err )
+    #     self.assertTrue( 'BUL_ANNEX-foo.xml' in self.arcvr.destination_filepath )
+    #     self.assertTrue( datetime_stamp in self.arcvr.destination_filepath )
 
     ## -- helpers -------------------------------
 
