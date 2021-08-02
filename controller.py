@@ -40,8 +40,10 @@ class Controller(object):
         arcvr = Archiver()
 
         # -- check for new file -----------------
-        exist_check_result = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
-        if exist_check_result == False:
+        (exists, err) = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
+        if err:
+            raise Exception( f'Problem checking for new file, ``{err}``' )
+        if exists == False:
             arcvr.log_and_quit( 'no annex requests found; quitting' )
 
         # -- archive original

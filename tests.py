@@ -29,13 +29,15 @@ class ArchiverTest( unittest.TestCase ):
 
     def test_detect_new_file_does_not_exist(self):
         target_dir_path = f'{TEST_DIRS_PATH}/new_file_does_not_exist'
-        exist_check_result = self.arcvr.check_for_new_file( target_dir_path )
-        self.assertEqual( False, exist_check_result )
+        ( exists, err ) = self.arcvr.check_for_new_file( target_dir_path )
+        self.assertTrue( exists == False )
+        self.assertTrue( err == None )
 
     def test_detect_new_file_does_exist(self):
         target_dir_path = f'{TEST_DIRS_PATH}/new_file_exists'
-        exist_check_result = self.arcvr.check_for_new_file( target_dir_path )
-        self.assertEqual( True, exist_check_result )
+        ( exists, err ) = self.arcvr.check_for_new_file( target_dir_path )
+        self.assertTrue( exists == True )
+        self.assertTrue( err == None )
 
     def test_make_datetime_stamp(self):
         datetime_obj = datetime.datetime(2021, 7, 13, 14, 40, 49 )

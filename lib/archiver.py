@@ -25,19 +25,39 @@ class Archiver():
 
     def check_for_new_file(self, dir_path):
         """ Checks if there is a file waiting. """
-        assert type(dir_path) == str
-        chk_rslt = False
-        contents = os.listdir( dir_path )
-        assert type(contents) == list
-        for item in contents:
-            log.debug( f'item, ``{item}``' )
-            if item.startswith( 'BUL_ANNEX' ):
-                chk_rslt = True
-                self.new_file_name = item
-                log.debug( f'self.new_file_name, ``{self.new_file_name}``' )
-                break
-        log.debug( f'chk_rslt, ``{chk_rslt}``' )
-        return chk_rslt
+        ( exists, err ) = ( False, None )
+        try:
+            assert type(dir_path) == str
+            contents = os.listdir( dir_path )
+            assert type(contents) == list
+            for item in contents:
+                log.debug( f'item, ``{item}``' )
+                if item.startswith( 'BUL_ANNEX' ):
+                    exists = True
+                    self.new_file_name = item
+                    log.debug( f'self.new_file_name, ``{self.new_file_name}``' )
+                    break
+        except Exception as e:
+            err = 'Problem checking for new file.'
+            log.exception( message )
+        log.debug( f'exists, ``{exists}``; err, ``{err}``' )
+        return ( exists, err )
+
+    # def check_for_new_file(self, dir_path):
+    #     """ Checks if there is a file waiting. """
+    #     assert type(dir_path) == str
+    #     chk_rslt = False
+    #     contents = os.listdir( dir_path )
+    #     assert type(contents) == list
+    #     for item in contents:
+    #         log.debug( f'item, ``{item}``' )
+    #         if item.startswith( 'BUL_ANNEX' ):
+    #             chk_rslt = True
+    #             self.new_file_name = item
+    #             log.debug( f'self.new_file_name, ``{self.new_file_name}``' )
+    #             break
+    #     log.debug( f'chk_rslt, ``{chk_rslt}``' )
+    #     return chk_rslt
 
     def make_datetime_stamp( self, datetime_obj ):
         """ Creates a a time-stamp string for the files to be archived, like '2021-07-13T13-41-39' """
