@@ -111,26 +111,32 @@ class ParserTest( unittest.TestCase ):
 
     def setUp( self ):
         self.prsr = Parser()
-        self.filepath = f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml'
 
     ## -- tests ---------------------------------
 
     def test_open_file__success(self):
-        ( all_text, err ) = self.prsr.load_file( self.filepath )
+        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         self.assertTrue( len(all_text) > 100 )
 
     def test_make_item_list(self):
-        ( all_text, err ) = self.prsr.load_file( self.filepath )
+        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( items, err ) = self.prsr.make_item_list( all_text )
         self.assertEqual( bs4.element.ResultSet, type(items) )
         self.assertEqual( 5, len(items) )
         self.assertEqual( bs4.element.Tag, type(items[0]) )
 
     def test_parse_title(self):
-        ( all_text, err ) = self.prsr.load_file( self.filepath )
+        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         ( title, err ) = self.prsr.parse_title( item_list[0] )
         self.assertEqual( 'Education.', title )
+        self.assertEqual( None, err )
+
+    def test_parse_title_no_title(self):
+        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX_no_title.xml' )
+        ( item_list, err ) = self.prsr.make_item_list( all_text )
+        ( title, err ) = self.prsr.parse_title( item_list[0] )
+        self.assertEqual( '', title )
         self.assertEqual( None, err )
 
     ## -- helpers -------------------------------

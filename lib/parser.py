@@ -53,9 +53,9 @@ class Parser():
             log.debug( f'self.items, ``{self.items}``' )
             assert type(self.items) == bs4.element.ResultSet
             return ( self.items, err )
-        except:
-            err = 'problem preparing items'
-            log.exception( err )
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'problem making item-list, ``{err}``' )
         log.debug( f'self.items, ``{self.items}``' )
         return ( self.items, err )
 
@@ -65,15 +65,17 @@ class Parser():
             assert type(item) == bs4.element.Tag
             title_elements = item.select( 'title' )
             assert type( title_elements ) == bs4.element.ResultSet
-            title = title_elements[0].get_text()  # only one title in item-xml
-            assert type( title ) == str
-            self.title = title
-        except:
-            err = 'problem parsing title'
-            log.exception( err )
+            log.debug( f'len(title_elements), ``{len(title_elements)}``' )
+            if len( title_elements ) > 0:
+                title = title_elements[0].get_text()  # only one title in item-xml
+                assert type( title ) == str
+                self.title = title
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'problem parsing title, ``{err}``' )
         log.debug( f'self.title, ``{self.title}``' )
         return ( self.title, err )
 
-
+    ## end class Parser()
 
 
