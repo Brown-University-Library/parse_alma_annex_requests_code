@@ -125,17 +125,24 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 5, len(items) )
         self.assertEqual( bs4.element.Tag, type(items[0]) )
 
-    def test_parse_title(self):
+    def test_parse_item_id(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( title, err ) = self.prsr.parse_title( item_list[0] )
+        ( item_id, err ) = self.prsr.parse_item_id( item_list[0] )
+        self.assertEqual( '2332679300006966', item_id )
+        self.assertEqual( None, err )
+
+    def test_parse_item_title(self):
+        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
+        ( item_list, err ) = self.prsr.make_item_list( all_text )
+        ( title, err ) = self.prsr.parse_item_title( item_list[0] )
         self.assertEqual( 'Education.', title )
         self.assertEqual( None, err )
 
     def test_parse_title_no_title(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX_no_title.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( title, err ) = self.prsr.parse_title( item_list[0] )
+        ( title, err ) = self.prsr.parse_item_title( item_list[0] )
         self.assertEqual( '', title )
         self.assertEqual( None, err )
 

@@ -40,14 +40,14 @@ class Controller(object):
         arcvr = Archiver()
         prsr = Parser()
 
-        # -- check for new file -----------------
+        ## -- check for new file ----------------
         (exists, err) = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
         if err:
             raise Exception( f'Problem checking for new file, ``{err}``' )
         if exists == False:
             arcvr.log_and_quit( 'no annex requests found; quitting' )
 
-        # -- archive original -------------------
+        ## -- archive original ------------------
         datetime_stamp = arcvr.make_datetime_stamp( datetime.datetime.now() ); assert type(datetime_stamp) == str
         (success, err) = arcvr.copy_original_to_archives( f'{self.PATH_TO_SOURCE_DIRECTORY}/{arcvr.new_file_name}', self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY, datetime_stamp )
         if err:
@@ -55,16 +55,33 @@ class Controller(object):
         if success == False:
             raise Exception( f'Problem archiving original; see logs' )
 
-        # -- load file --------------------------
+        ## -- load file -------------------------
         ( source_file_contents, err ) = prsr.load_file( self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY, arcvr.new_file_name )
         if err:
             raise Exception( f'Problem loading source-file, ``{err}``' )
 
-        # -- get list of requests from file -----
+        ## -- get list of requests from file ----
         ( items, err ) = prsr.make_item_list( source_file_contents )
         if err:
             raise Exception( f'Problem creating items_list, ``{err}``' )
 
+        ## -- process items
+        for item in items:
+            # parsed_elements = prsr.parse_elements( item )
+            item_id = prsr.parse_item_id( item )
+            item_title = prsr.parse_title( item )
+            # item_barcode = prsr.parse_item_barcode( item )
+
+
+            # √ record_number
+            # book_barcode
+            # las_delivery_stop
+            # las_customer_code
+            # patron_name
+            # patron_barcode
+            # title
+            # las_date
+            # note
 
 
 
