@@ -70,7 +70,7 @@ class Controller(object):
             # parsed_elements = prsr.parse_elements( item )
             item_id = prsr.parse_item_id( item )
             item_title = prsr.parse_title( item )
-            # item_barcode = prsr.parse_item_barcode( item )
+            item_barcode = prsr.parse_item_barcode( item )
 
 
             # √ record_number

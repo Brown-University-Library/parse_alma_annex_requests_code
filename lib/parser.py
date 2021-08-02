@@ -25,12 +25,8 @@ class Parser():
     def __init__(self):
         self.all_text = ''
         self.items = []  # bs4.element.ResultSet
-        # self.current_item = None  # bs4.element.Tag
         self.item_text = ''
         self.xml_obj = None
-        self.item_id = ''
-        self.title = ''
-        self.patron_name = ''
 
     def load_file( self, filepath ):
         ( self.all_text, err ) = ( '', None )
@@ -61,31 +57,19 @@ class Parser():
         return ( self.items, err )
 
     def parse_item_id( self, item ):
-        ( self.item_id, err ) = self.parse_element( item, 'itemId' )
-        log.debug( f'self.item_id, ``{self.item_id}``' )
-        return ( self.item_id, err )
+        ( item_id, err ) = self.parse_element( item, 'itemId' )
+        log.debug( f'item_id, ``{item_id}``' )
+        return ( item_id, err )
 
     def parse_item_title( self, item ):
-        ( self.item_title, err ) = self.parse_element( item, 'title' )
-        log.debug( f'self.item_title, ``{self.item_title}``' )
-        return ( self.item_title, err )
+        ( item_title, err ) = self.parse_element( item, 'title' )
+        log.debug( f'item_title, ``{item_title}``' )
+        return ( item_title, err )
 
-    # def parse_title( self, item ):
-    #     ( self.title, err ) = ( '', None )
-    #     try:
-    #         assert type(item) == bs4.element.Tag
-    #         title_elements = item.select( 'title' )
-    #         assert type( title_elements ) == bs4.element.ResultSet
-    #         log.debug( f'len(title_elements), ``{len(title_elements)}``' )
-    #         if len( title_elements ) > 0:
-    #             title = title_elements[0].get_text()  # only one title in item-xml
-    #             assert type( title ) == str
-    #             self.title = title
-    #     except Exception as e:
-    #         err = repr(e)
-    #         log.exception( f'problem parsing title, ``{err}``' )
-    #     log.debug( f'self.title, ``{self.title}``' )
-    #     return ( self.title, err )
+    def parse_item_barcode( self, item ):
+        ( item_barcode, err ) = self.parse_element( item, 'barcode' )
+        log.debug( f', ``{item_barcode}``' )
+        return ( item_barcode, err )
 
     def parse_element ( self, item, tag_name ):
         """ Returns text for given tag-name.
