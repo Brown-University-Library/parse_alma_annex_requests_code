@@ -41,11 +41,18 @@ class Controller(object):
         prsr = Parser()
 
         ## -- check for new file ----------------
-        (exists, err) = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
+        (new_file_name, err) = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
         if err:
             raise Exception( f'Problem checking for new file, ``{err}``' )
-        if exists == False:
-            arcvr.log_and_quit( 'no annex requests found; quitting' )
+        if new_file_name == '':
+            log.infi( 'no annex requests found; quitting' )
+
+        # (exists, err) = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
+        # if err:
+        #     raise Exception( f'Problem checking for new file, ``{err}``' )
+        # if exists == False:
+        #     # arcvr.log_and_quit( 'no annex requests found; quitting' )
+        #     log.infi( 'no annex requests found; quitting' )
 
         ## -- archive original ------------------
         datetime_stamp = arcvr.make_datetime_stamp( datetime.datetime.now() ); assert type(datetime_stamp) == str

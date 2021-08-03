@@ -20,13 +20,14 @@ log.debug( 'log setup' )
 class Archiver():
 
     def __init__(self):
-        self.new_file_name = ''
-        self.destination_filepath = ''
+        # self.new_file_name = ''
+        # self.destination_filepath = ''
+        self.archive_original_dir_path = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY']
         self.archive_parsed_dir_path = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_PARSED_DIRECTORY']
 
     def check_for_new_file(self, dir_path):
-        """ Checks if there is a file waiting. """
-        ( exists, err ) = ( False, None )
+        """ Checks if there is a file waiting; if so, returns new_file_name. """
+        ( new_file_name, err ) = ( '', None )
         try:
             assert type(dir_path) == str
             contents = os.listdir( dir_path )
@@ -35,14 +36,14 @@ class Archiver():
                 log.debug( f'item, ``{item}``' )
                 if item.startswith( 'BUL_ANNEX' ):
                     exists = True
-                    self.new_file_name = item
-                    log.debug( f'self.new_file_name, ``{self.new_file_name}``' )
+                    new_file_name = item
+                    log.debug( f'new_file_name, ``{new_file_name}``' )
                     break
         except Exception as e:
             err = repr(e)
             log.exception( f'Problem checking for new file, ``{err}``' )
-        log.debug( f'exists, ``{exists}``; err, ``{err}``' )
-        return ( exists, err )
+        log.debug( f'new_file_name, ``{new_file_name}``; err, ``{err}``' )
+        return ( new_file_name, err )
 
     def make_datetime_stamp( self, datetime_obj ):
         """ Creates a a time-stamp string for the files to be archived, like '2021-07-13T13-41-39' """
@@ -50,7 +51,7 @@ class Archiver():
         custom_datestamp = iso_datestamp[0:19].replace( ':', '-' )  # colons to slashes to prevent filename issues
         return str( custom_datestamp )
 
-    def copy_original_to_archives( self, source_file_path, destination_dir_path, datetime_stamp ):
+    def copy_original_to_archives( self, source_file_path, datetime_stamp, destination_dir_path=None ):
         """ Archives original before doing anything else. """
         log.debug( f'source_file_path, ``{source_file_path}``' )
         log.debug( f'destination_dir_path, ``{destination_dir_path}``' )
@@ -61,10 +62,13 @@ class Archiver():
             assert type(datetime_stamp) == str
             source_path_obj = pathlib.Path( source_file_path )
             source_filename = source_path_obj.name
-            self.destination_filepath = f'{destination_dir_path}/{datetime_stamp}__{source_filename}'
-            log.debug( f'self.destination_filepath, ``{self.destination_filepath}``' )
-            shutil.copy2( source_file_path, self.destination_filepath )
-            destination_path_obj = pathlib.Path( self.destination_filepath )
+            if destination_dir_path == None:
+                destination_dir_path = self.archive_original_dir_path
+            destination_filepath = f'{destination_dir_path}/REQ-ALMA-ORIG_{datetime_stamp}.xml'
+            log.debug( f'destination_filepath, ``{destination_filepath}``' )
+            shutil.copy2( source_file_path, destination_filepath )
+            ## check that it's there
+            destination_path_obj = pathlib.Path( destination_filepath )
             log.debug( f'destination_path_obj, ``{destination_path_obj}``' )
             assert destination_path_obj.exists() == True
             success = True
@@ -101,8 +105,6 @@ class Archiver():
             assert type(datetime_stamp) == str
             if destination_dir_path == None:
                 destination_dir_path = self.archive_parsed_dir_path
-            # source_path_obj = pathlib.Path( source_file_path )
-            # source_filename = source_path_obj.name
             destination_filepath = f'{destination_dir_path}/REQ-ALMA-PARSED_{datetime_stamp}.dat'
             log.debug( f'destination_filepath, ``{destination_filepath}``' )
             with open( destination_filepath, 'w' ) as file_handler:
@@ -117,14 +119,12 @@ class Archiver():
         log.debug( f'success, ``{success}``; err, ``{err}``' )
         return ( success, err )
 
-
-
     # -- common ---------------------------------
 
-    def log_and_quit( self, message ):
-        """ Exits on various errors. """
-        message = f'{message}\n\n'
-        log.info( message )
-        sys.exit( message )
+    # def log_and_quit( self, message ):
+    #     """ Exits on various errors. """
+    #     message = f'{message}\n\n'
+    #     log.info( message )
+    #     sys.exit( message )
 
 ## end class Archiver
