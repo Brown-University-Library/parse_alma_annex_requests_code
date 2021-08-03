@@ -3,7 +3,7 @@ All Alma 'pickup-library' entries must resolve to one of these GFA 'delivery-sto
 [ 'AN', 'ED', 'HA', 'OR', 'RO', 'SC' ]
 """
 
-PICKUP_TO_GFA = {
+ALMA_PICKUP_TO_GFA_DELIVERY = {
     'ANNEX': 'AN',
     'ANNEX READING ROOM': 'AN',
     'Elec. Delivery (Annex Articles)': 'ED',
@@ -22,3 +22,16 @@ PICKUP_TO_GFA = {
 
 
 
+"""
+All Alma 'location' entries must resolve to one of these GFA 'location' codes:
+[ 'ED', 'QH', 'QS' ]
+"""
+
+ALMA_LOCATION_TO_GFA_LOCATION = {
+    'ANNEX': 'QS',
+    'ANNEX_HAY': 'QH',
+    'Electronic Delivery': 'ED',
+    'ORWIG': 'QS',
+    'ROCK': 'QS',
+    'SCI': 'QS'
+}
