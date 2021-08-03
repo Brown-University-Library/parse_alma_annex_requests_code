@@ -118,12 +118,14 @@ class ArchiverTest( unittest.TestCase ):
 
     def clear_dir( self, destination_dir ):
         dir_contents = os.listdir( destination_dir )
+        log.debug( f'dir_contents, ``{dir_contents}``' )
         for item in dir_contents:
+            item_path = f'{destination_dir}/{item}'
             try:
-                os.remove( item )
-                log.debug( f'item, ``{item}`` successfully deleted' )
+                os.remove( item_path )
+                log.debug( f'item, ``{item_path}`` successfully deleted' )
             except Exception as e:
-                log.exception( f'problem deleting found file, ``{item}``' )
+                log.exception( f'problem deleting found file, ``{item_path}``' )
                 pass
         return
 
