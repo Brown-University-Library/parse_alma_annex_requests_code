@@ -4,6 +4,7 @@ from email.mime.text import MIMEText
 
 sys.path.append( os.environ['ANX_ALMA__ENCLOSING_PROJECT_PATH'] )
 from parse_alma_annex_requests_code.lib.archiver import Archiver
+from parse_alma_annex_requests_code.lib.parser import Parser
 # from process_email_pageslips.lib.utility_code import Mailer
 
 
@@ -25,7 +26,7 @@ class Controller(object):
     def __init__( self ):
         self.PATH_TO_SOURCE_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_SOURCE_DIRECTORY']  # to check for new files
         self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY']
-        # self.PATH_TO_ARCHIVES_PARSED_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVES_PARSED_DIRECTORY']
+        self.PATH_TO_ARCHIVES_PARSED_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_PARSED_DIRECTORY']
         # self.PATH_TO_PARSED_ANNEX_COUNT_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_PARSED_ANNEX_COUNT_DIRECTORY']
         # self.PATH_TO_PARSED_ANNEX_DATA_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_PARSED_ANNEX_DATA_DIRECTORY']
         # self.PATH_TO_SOURCE_FILE = os.environ['ANX_ALMA__PATH_TO_SOURCE_FILE']
@@ -45,25 +46,18 @@ class Controller(object):
         if err:
             raise Exception( f'Problem checking for new file, ``{err}``' )
         if new_file_name == '':
-            log.infi( 'no annex requests found; quitting' )
-
-        # (exists, err) = arcvr.check_for_new_file( self.PATH_TO_SOURCE_DIRECTORY )
-        # if err:
-        #     raise Exception( f'Problem checking for new file, ``{err}``' )
-        # if exists == False:
-        #     # arcvr.log_and_quit( 'no annex requests found; quitting' )
-        #     log.infi( 'no annex requests found; quitting' )
+            log.info( 'no annex requests found; quitting' )
 
         ## -- archive original ------------------
+        source_file_path = f'{self.PATH_TO_SOURCE_DIRECTORY}/{new_file_name}'
         datetime_stamp = arcvr.make_datetime_stamp( datetime.datetime.now() ); assert type(datetime_stamp) == str
-        (success, err) = arcvr.copy_original_to_archives( f'{self.PATH_TO_SOURCE_DIRECTORY}/{arcvr.new_file_name}', self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY, datetime_stamp )
+        destination_dir_path = self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY
+        ( archived_original_filepath, err ) = arcvr.copy_original_to_archives( source_file_path, datetime_stamp, destination_dir_path )
         if err:
             raise Exception( f'Problem archiving original, ``{err}``' )
-        if success == False:
-            raise Exception( f'Problem archiving original; see logs' )
 
         ## -- load file -------------------------
-        ( source_file_contents, err ) = prsr.load_file( self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY, arcvr.new_file_name )
+        ( source_file_contents, err ) = prsr.load_file( archived_original_filepath )
         if err:
             raise Exception( f'Problem loading source-file, ``{err}``' )
 
@@ -95,7 +89,9 @@ class Controller(object):
         ( stringified_data, err ) = arcvr.stringify_gfa_data( gfa_items )
 
         ## -- archive parsed-data ---------------
-        ( success, err ) = arcvr.copy_parsed_to_archives( stringified_data, datetime_stamp )
+        # ( success, err ) = arcvr.save_parsed_to_archives( stringified_data, datetime_stamp )
+        destination_dir_path = self.PATH_TO_ARCHIVES_PARSED_DIRECTORY
+        ( success, err ) = arcvr.save_parsed_to_archives( stringified_data, datetime_stamp, destination_dir_path )
         if err:
             raise Exception( f'Problem archiving parsed-data, ``{err}``' )
         if success == False:
