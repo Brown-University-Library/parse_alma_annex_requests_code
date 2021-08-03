@@ -71,6 +71,14 @@ class Parser():
         log.debug( f', ``{item_barcode}``' )
         return ( item_barcode, err )
 
+    def parse_patron_name( self, item ):
+        ( patron_name, err ) = self.parse_element( item, 'patronName' )
+        log.debug( f', ``{patron_name}``' )
+        return ( patron_name, err )
+
+
+
+
     def parse_element ( self, item, tag_name ):
         """ Returns text for given tag-name.
             Called by individual parsers, above. """

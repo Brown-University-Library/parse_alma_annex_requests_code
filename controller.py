@@ -67,19 +67,19 @@ class Controller(object):
 
         ## -- process items
         for item in items:
-            # parsed_elements = prsr.parse_elements( item )
             item_id = prsr.parse_item_id( item )
             item_title = prsr.parse_title( item )
             item_barcode = prsr.parse_item_barcode( item )
+            patron_name = prsr.parse_patron_name( item )
 
 
             # √ record_number
-            # book_barcode
+            # √ book_barcode
             # las_delivery_stop
             # las_customer_code
             # patron_name
             # patron_barcode
-            # title
+            # √ title
             # las_date
             # note
 

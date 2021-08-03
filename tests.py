@@ -153,6 +153,13 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( '31236011508853', item_barcode )
         self.assertEqual( None, err )
 
+    def test_parse_patron_name(self):
+        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
+        ( item_list, err ) = self.prsr.make_item_list( all_text )
+        ( patron_name, err ) = self.prsr.parse_patron_name( item_list[0] )
+        self.assertEqual( 'Ddddd, Bbbbbb', patron_name )
+        self.assertEqual( None, err )
+
     ## -- helpers -------------------------------
 
     ## end class ParserTest()
