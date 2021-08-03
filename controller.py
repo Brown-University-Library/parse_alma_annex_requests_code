@@ -70,7 +70,7 @@ class Controller(object):
         gfa_items = []
         for item in items:
             ( item_id, err ) = prsr.parse_item_id( item )
-            ( item_title, err ) = prsr.parse_title( item )
+            ( item_title, err ) = prsr.parse_item_title( item )
             ( item_barcode, err ) = prsr.parse_item_barcode( item )
             ( patron_name, err ) = prsr.parse_patron_name( item )
             ( patron_barcode, err ) = prsr.parse_patron_barcode( item )

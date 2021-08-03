@@ -27,6 +27,7 @@ class Archiver():
         ( new_file_name, err ) = ( '', None )
         try:
             assert type(dir_path) == str
+            log.debug( f'new-file dir_path, ``{dir_path}``' )
             contents = os.listdir( dir_path )
             assert type(contents) == list
             for item in contents:

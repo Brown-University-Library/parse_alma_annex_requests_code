@@ -34,6 +34,7 @@ class Parser():
     def load_file( self, filepath ):
         ( self.all_text, err ) = ( '', None )
         try:
+            log.debug( f'filepath, ``{filepath}``' )
             assert type( filepath ) == str
             with open( filepath, encoding='utf-8' ) as f:
                 self.all_text = f.read()
@@ -73,6 +74,7 @@ class Parser():
                     gfa_entry = [
                         item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, self.prepare_gfa_datetime(), patron_note
                     ]
+            log.debug( f'gfa_entry, ``{gfa_entry}``' )
         except Exception as e:
             err = repr( e )
             log.exception( f'problem preparing gfa entry, ``{err}``' )
@@ -110,22 +112,6 @@ class Parser():
         datetime_str = datetime_obj.strftime( '%a %b %d %Y' )
         log.debug( f'datetime_str, ``{datetime_str}``' )
         return datetime_str
-
-# def prepareLasDate( date_object=None ):
-#   '''
-#   - Called by: opac_to_las_python_parser_code.controller
-#   - Purpose: to create a date string like 'Wed Jul 01 2005'. In practice, no date will be passed in, but the 'date_object=None' allows for easy testing.
-#   '''
-
-#   if date_object == None:
-#     date_object = datetime.datetime.now()
-
-#   return date_object.strftime( '%a %b %d %Y' )
-
-#   # end def prepareLasDate()
-
-
-
 
     ## -- just parsers ---------------------------
 
