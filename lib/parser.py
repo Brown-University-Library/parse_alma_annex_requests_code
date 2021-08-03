@@ -76,6 +76,10 @@ class Parser():
         log.debug( f', ``{patron_name}``' )
         return ( patron_name, err )
 
+    def parse_patron_barcode( self, item ):
+        ( patron_barcode, err ) = self.parse_element( item, 'patronIdentifier' )
+        log.debug( f', ``{patron_barcode}``' )
+        return ( patron_barcode, err )
 
 
 

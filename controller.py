@@ -77,7 +77,7 @@ class Controller(object):
             # √ book_barcode
             # las_delivery_stop
             # las_customer_code
-            # patron_name
+            # √ patron_name
             # patron_barcode
             # √ title
             # las_date
