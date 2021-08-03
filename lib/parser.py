@@ -71,7 +71,7 @@ class Parser():
                 ( gfa_location, err ) = self.transform_parsed_library_code( parsed_library_code )
                 if err == None:
                     gfa_entry = [
-                        item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, str(datetime.datetime.now()), patron_note
+                        item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, self.prepare_gfa_datetime(), patron_note
                     ]
         except Exception as e:
             err = repr( e )
@@ -102,6 +102,30 @@ class Parser():
             log.exception( f'problem preparing gfa_location, ``{err}``' )
         log.debug( f'gfa_location, ``{gfa_location}``' )
         return ( gfa_location, err )
+
+    def prepare_gfa_datetime( self, datetime_obj=None ):
+        """ In practice, no datetime-object will be passed in, but the 'datetime_obj=None' allows for easy testing. """
+        if datetime_obj == None:
+            datetime_obj = datetime.datetime.now()
+        datetime_str = datetime_obj.strftime( '%a %b %d %Y' )
+        log.debug( f'datetime_str, ``{datetime_str}``' )
+        return datetime_str
+
+# def prepareLasDate( date_object=None ):
+#   '''
+#   - Called by: opac_to_las_python_parser_code.controller
+#   - Purpose: to create a date string like 'Wed Jul 01 2005'. In practice, no date will be passed in, but the 'date_object=None' allows for easy testing.
+#   '''
+
+#   if date_object == None:
+#     date_object = datetime.datetime.now()
+
+#   return date_object.strftime( '%a %b %d %Y' )
+
+#   # end def prepareLasDate()
+
+
+
 
     ## -- just parsers ---------------------------
 

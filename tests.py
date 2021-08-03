@@ -188,6 +188,10 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 'ROCK', library_code )
         self.assertEqual( None, err )
 
+    def test_prepare_gfa_date(self):
+        datetime_obj = datetime.datetime( 1960, 2, 2, 1, 15, 30 )
+        self.assertEqual( 'Tue Feb 02 1960', self.prsr.prepare_gfa_datetime(datetime_obj) )
+
     def test_prepare_gfa_entry(self):
         ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
@@ -199,7 +203,7 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 'Ddddd, Bbbbbb', gfa_entry[4] )
         self.assertEqual( '12345678901234', gfa_entry[5] )
         self.assertEqual( 'Education.', gfa_entry[6] )
-        self.assertEqual( 'foo', gfa_entry[7] )
+        self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
         self.assertEqual( None, err )
 
     ## end class ParserTest()
