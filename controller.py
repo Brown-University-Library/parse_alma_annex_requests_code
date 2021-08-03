@@ -74,14 +74,16 @@ class Controller(object):
             patron_barcode = prsr.parse_patron_barcode( item )
             patron_note = prsr.parse_patron_note( item )
             parsed_pickup_library = prsr.parse_pickup_library( item )
+            parsed_library_code = prsr.parse_library_code( item )
+
 
 
 
 
             # √ record_number
             # √ book_barcode
-            # las_delivery_stop
-            # las_customer_code
+            # √ las_delivery_stop
+            # √las_customer_code
             # √ patron_name
             # √ patron_barcode
             # √ title

@@ -91,6 +91,12 @@ class Parser():
         log.debug( f', ``{pickup_library}``' )
         return ( pickup_library, err )
 
+    def parse_library_code( self, item ):
+        ( library_code, err ) = self.parse_element( item, 'libraryCode' )
+        log.debug( f', ``{library_code}``' )
+        return ( library_code, err )
+
+    ## -- helper --------------------------------
 
     def parse_element ( self, item, tag_name ):
         """ Returns text for given tag-name.
@@ -111,7 +117,6 @@ class Parser():
             log.exception( f'problem parsing tag, ``{tag_name}``, ``{err}``' )
         log.debug( f'element_text, ``{element_text}``' )
         return ( element_text, err )
-
 
     ## end class Parser()
 

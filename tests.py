@@ -181,6 +181,13 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 'Rockefeller Library', pickup_library )
         self.assertEqual( None, err )
 
+    def test_parse_library_code(self):
+        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
+        ( item_list, err ) = self.prsr.make_item_list( all_text )
+        ( library_code, err ) = self.prsr.parse_library_code( item_list[0] )
+        self.assertEqual( 'ROCK', library_code )
+        self.assertEqual( None, err )
+
     ## end class ParserTest()
 
 

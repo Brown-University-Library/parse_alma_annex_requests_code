@@ -23,11 +23,11 @@ ALMA_PICKUP_TO_GFA_DELIVERY = {
 
 
 """
-All Alma 'location' entries must resolve to one of these GFA 'location' codes:
+All Alma 'libraryCode' entries must resolve to one of these GFA 'location' codes:
 [ 'ED', 'QH', 'QS' ]
 """
 
-ALMA_LOCATION_TO_GFA_LOCATION = {
+ALMA_LIBRARY_CODE_TO_GFA_LOCATION = {
     'ANNEX': 'QS',
     'ANNEX_HAY': 'QH',
     'Electronic Delivery': 'ED',
