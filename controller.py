@@ -71,6 +71,8 @@ class Controller(object):
             item_title = prsr.parse_title( item )
             item_barcode = prsr.parse_item_barcode( item )
             patron_name = prsr.parse_patron_name( item )
+            patron_barcode = prsr.parse_patron_barcode( item )
+            patron_note = prsr.parse_patron_note( item )
 
 
             # √ record_number
@@ -78,7 +80,7 @@ class Controller(object):
             # las_delivery_stop
             # las_customer_code
             # √ patron_name
-            # patron_barcode
+            # √ patron_barcode
             # √ title
             # las_date
             # note
