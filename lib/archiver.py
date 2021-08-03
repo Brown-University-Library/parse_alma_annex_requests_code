@@ -22,6 +22,7 @@ class Archiver():
     def __init__(self):
         self.new_file_name = ''
         self.destination_filepath = ''
+        self.archive_parsed_dir_path = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_PARSED_DIRECTORY']
 
     def check_for_new_file(self, dir_path):
         """ Checks if there is a file waiting. """
@@ -89,6 +90,34 @@ class Archiver():
             log.exception( f'Problem transforming list of lists into text, ``{err}``' )
         log.debug( f'text, ``{text}``; err, ``{err}``' )
         return ( text, err )
+
+    def save_parsed_to_archives( self, text, datetime_stamp, destination_dir_path=None ):
+        log.debug( f'text[0:100], ``{text[0:100]}``' )
+        log.debug( f'destination_dir_path, ``{destination_dir_path}``' )
+        log.debug( f'datetime_stamp, ``{datetime_stamp}``' )
+        ( success, err ) = ( False, None )
+        try:
+            assert type(text) == str
+            assert type(datetime_stamp) == str
+            if destination_dir_path == None:
+                destination_dir_path = self.archive_parsed_dir_path
+            # source_path_obj = pathlib.Path( source_file_path )
+            # source_filename = source_path_obj.name
+            destination_filepath = f'{destination_dir_path}/REQ-ALMA-PARSED_{datetime_stamp}.dat'
+            log.debug( f'destination_filepath, ``{destination_filepath}``' )
+            with open( destination_filepath, 'w' ) as file_handler:
+                file_handler.write( text )
+            ## check that it's there
+            destination_path_obj = pathlib.Path( destination_filepath )
+            assert destination_path_obj.exists() == True
+            success = True
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'Problem checking for new file, ``{err}``' )
+        log.debug( f'success, ``{success}``; err, ``{err}``' )
+        return ( success, err )
+
+
 
     # -- common ---------------------------------
 

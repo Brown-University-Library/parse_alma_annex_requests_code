@@ -64,7 +64,7 @@ class ArchiverTest( unittest.TestCase ):
         self.assertTrue( success == False )
         self.assertEqual( 'AssertionError()', err )
 
-    def test_stringify_gfa_data( self ):
+    def test_stringify_gfa_data(self):
         gfa_items = [
             ['a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1', 'i1' ],
             ['aa2', 'bb2', 'cc2', 'd2', 'e2', 'f2', 'g2', 'h2', 'i2' ],
@@ -76,6 +76,15 @@ class ArchiverTest( unittest.TestCase ):
             stringified_data
             )
         self.assertTrue( err == None )
+
+    def test_save_parsed_to_archives(self):
+        text = 'foo'
+        datetime_stamp = '1960-02-02T08-15-00'
+        test_destination_dir = f'{TEST_DIRS_PATH}/save_parsed_destination_dir'
+        self.clear_dir( test_destination_dir )
+        ( success, err ) = self.arcvr.save_parsed_to_archives( text, datetime_stamp, test_destination_dir  )
+        self.assertEqual( True, success )
+        self.assertEqual( None, err )
 
     ## -- helpers -------------------------------
 
@@ -104,6 +113,17 @@ class ArchiverTest( unittest.TestCase ):
                 log.debug( f'full_item_path successfully deleted, ``{full_item_path}``' )
             except:
                 log.exception( 'problem deleting found file' )
+                pass
+        return
+
+    def clear_dir( self, destination_dir ):
+        dir_contents = os.listdir( destination_dir )
+        for item in dir_contents:
+            try:
+                os.remove( item )
+                log.debug( f'item, ``{item}`` successfully deleted' )
+            except Exception as e:
+                log.exception( f'problem deleting found file, ``{item}``' )
                 pass
         return
 
