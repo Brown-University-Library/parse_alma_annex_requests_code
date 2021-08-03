@@ -50,8 +50,8 @@ class ArchiverTest( unittest.TestCase ):
         source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
         destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
         # ( success, err ) = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
-        ( success, err ) = self.arcvr.copy_original_to_archives( source_file_path, datetime_stamp, destination_dir_path,  )
-        self.assertTrue( success == True )
+        ( destination_filepath, err ) = self.arcvr.copy_original_to_archives( source_file_path, datetime_stamp, destination_dir_path,  )
+        self.assertEqual( True, 'test_dirs/copy_original_destination_dir/REQ-ALMA-ORIG_2021-07-13T14-40-49.xml' in destination_filepath )
         self.assertTrue( err == None )
 
     def test_copy_original_to_archives_error(self):
@@ -59,8 +59,8 @@ class ArchiverTest( unittest.TestCase ):
         datetime_stamp = 2
         source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
         destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
-        ( success, err ) = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
-        self.assertTrue( success == False )
+        ( destination_filepath, err ) = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
+        self.assertTrue( destination_filepath == '' )
         self.assertEqual( 'AssertionError()', err )
 
     def test_stringify_gfa_data(self):
