@@ -75,7 +75,8 @@ class Controller(object):
             patron_note = prsr.parse_patron_note( item )
             parsed_pickup_library = prsr.parse_pickup_library( item )
             parsed_library_code = prsr.parse_library_code( item )
-
+            gfa_entry = prsr.prepare_gfa_entry(
+                item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
 
 
 
