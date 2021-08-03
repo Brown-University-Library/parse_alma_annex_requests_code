@@ -1,6 +1,6 @@
 import logging, os, pathlib, sys
 
-import bs4
+import bs4, requests
 from bs4 import BeautifulSoup
 
 
@@ -66,11 +66,32 @@ class Parser():
         try:
             for element in [ item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code ]:
                 assert type( element ) == str
+            ( gfa_delivery, err ) = self.transform_parsed_pickup_library( parsed_pickup_library )
+            if err == None:
+                ( gfa_location, err ) = self.transform_parsed_library_code( parsed_library_code )
+                if err == None:
+                    gfa_entry = [
+                        item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, str(datatime.datetime.now()), patron_note
+                    ]
         except Exception as e:
             err = repr( e )
             log.exception( f'problem preparing gfa entry, ``{err}``' )
         log.debug( f'gfa_entry, ``{gfa_entry}``' )
         return ( gfa_entry, err )
+
+
+    def transform_parsed_pickup_library( self, parsed_pickup_library ):
+        url = f'https://library.brown.edu/ils_annex_mapper/pickup_api_v2/ils_code_{parsed_pickup_library}'
+        log.debug( f'url, ``{url}``' )
+        hdrs = { 'User-Agent': 'BUL_Alma_Annex_Output_Parser' }
+        response = requests.get( url, headers=hdrs )
+
+
+
+
+
+
+
 
 
 
