@@ -85,6 +85,13 @@ class ArchiverTest( unittest.TestCase ):
         self.assertEqual( True, success )
         self.assertEqual( None, err )
 
+    def test_send_gfa_files(self):
+        test_destination_dir = f'{TEST_DIRS_PATH}/test_gfa_output_dir'
+        self.clear_dir( test_destination_dir )
+        ( success, err ) = self.arcvr.send_gfa_files( text, count, zzzdatetime_stamp, test_destination_dir  )
+        self.assertEqual( True, success )
+        self.assertEqual( None, err )
+
     ## -- helpers -------------------------------
 
     def prep_copy_dirs(self):

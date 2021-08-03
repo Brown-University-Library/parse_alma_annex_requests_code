@@ -89,7 +89,6 @@ class Controller(object):
         ( stringified_data, err ) = arcvr.stringify_gfa_data( gfa_items )
 
         ## -- archive parsed-data ---------------
-        # ( success, err ) = arcvr.save_parsed_to_archives( stringified_data, datetime_stamp )
         destination_dir_path = self.PATH_TO_ARCHIVES_PARSED_DIRECTORY
         ( success, err ) = arcvr.save_parsed_to_archives( stringified_data, datetime_stamp, destination_dir_path )
         if err:
@@ -98,7 +97,7 @@ class Controller(object):
             raise Exception( f'Problem archiving parsed_data; see logs' )
 
         ## -- determine count -------------------
-        ( count, err ) = arcvr.determine_count()
+        count = len( gfa_items )
 
         ## -- send gfa count & data files -------
         ( success, err ) = arcvr.send_gfa_files( stringified_data, count, datetime_stamp )

@@ -21,10 +21,6 @@ class Archiver():
 
     def __init__(self):
         pass
-        # self.new_file_name = ''
-        # self.destination_filepath = ''
-        # self.archive_original_dir_path = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY']
-        # self.archive_parsed_dir_path = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_PARSED_DIRECTORY']
 
     def check_for_new_file(self, dir_path):
         """ Checks if there is a file waiting; if so, returns new_file_name. """
@@ -78,37 +74,11 @@ class Archiver():
         log.debug( f'destination_filepath, ``{destination_filepath}``; err, ``{err}``' )
         return ( destination_filepath, err )
 
-    # def copy_original_to_archives( self, source_file_path, datetime_stamp, destination_dir_path ):
-    #     """ Archives original before doing anything else. """
-    #     log.debug( f'source_file_path, ``{source_file_path}``' )
-    #     log.debug( f'destination_dir_path, ``{destination_dir_path}``' )
-    #     ( success, err ) = ( False, None )
-    #     try:
-    #         assert type(source_file_path) == str
-    #         assert type(destination_dir_path) == str
-    #         assert type(datetime_stamp) == str
-    #         source_path_obj = pathlib.Path( source_file_path )
-    #         source_filename = source_path_obj.name
-    #         if destination_dir_path == None:
-    #             destination_dir_path = self.archive_original_dir_path
-    #         destination_filepath = f'{destination_dir_path}/REQ-ALMA-ORIG_{datetime_stamp}.xml'
-    #         log.debug( f'destination_filepath, ``{destination_filepath}``' )
-    #         shutil.copy2( source_file_path, destination_filepath )
-    #         ## check that it's there
-    #         destination_path_obj = pathlib.Path( destination_filepath )
-    #         log.debug( f'destination_path_obj, ``{destination_path_obj}``' )
-    #         assert destination_path_obj.exists() == True
-    #         success = True
-    #     except Exception as e:
-    #         err = repr(e)
-    #         log.exception( f'Problem checking for new file, ``{err}``' )
-    #     log.debug( f'success, ``{success}``; err, ``{err}``' )
-    #     return ( success, err )
-
     def stringify_gfa_data( self, gfa_items ):
         """ line elements: [ item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, gfa_date_str, patron_note ] """
         ( text, err ) = ( '', None )
         try:
+            assert type(gfa_items) == list
             text = ''
             for item in gfa_items:
                 ( item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, gfa_date_str, patron_note ) = ( item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8] )
@@ -130,8 +100,7 @@ class Archiver():
         try:
             assert type(text) == str
             assert type(datetime_stamp) == str
-            # if destination_dir_path == None:
-            #     destination_dir_path = self.archive_parsed_dir_path
+            assert type(destination_dir_path) == str
             destination_filepath = f'{destination_dir_path}/REQ-ALMA-PARSED_{datetime_stamp}.dat'
             log.debug( f'destination_filepath, ``{destination_filepath}``' )
             with open( destination_filepath, 'w' ) as file_handler:
@@ -146,12 +115,5 @@ class Archiver():
         log.debug( f'success, ``{success}``; err, ``{err}``' )
         return ( success, err )
 
-    # -- common ---------------------------------
-
-    # def log_and_quit( self, message ):
-    #     """ Exits on various errors. """
-    #     message = f'{message}\n\n'
-    #     log.info( message )
-    #     sys.exit( message )
 
 ## end class Archiver
