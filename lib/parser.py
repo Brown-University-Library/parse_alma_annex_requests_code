@@ -28,6 +28,8 @@ class Parser():
         self.item_text = ''
         self.xml_obj = None
 
+    ## -- non-parsing support -------------------
+
     def load_file( self, filepath ):
         ( self.all_text, err ) = ( '', None )
         try:
@@ -41,6 +43,7 @@ class Parser():
         return ( self.all_text, err )
 
     def make_item_list( self, all_text ):
+        ( self.items, err ) = ( [], None )
         try:
             log.debug( f'all_text, ``{all_text}``' )
             assert type( all_text ) == str
@@ -55,6 +58,23 @@ class Parser():
             log.exception( f'problem making item-list, ``{err}``' )
         log.debug( f'self.items, ``{self.items}``' )
         return ( self.items, err )
+
+
+    def prepare_gfa_entry( self, item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code ):
+        """ Prepares all GFA data elements. """
+        ( gfa_entry, err ) = ( [], None )
+        try:
+            for element in [ item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code ]:
+                assert type( element ) == str
+        except Exception as e:
+            err = repr( e )
+            log.exception( f'problem preparing gfa entry, ``{err}``' )
+        log.debug( f'gfa_entry, ``{gfa_entry}``' )
+        return ( gfa_entry, err )
+
+
+
+    ## -- just parsers ---------------------------
 
     def parse_item_id( self, item ):
         ( item_id, err ) = self.parse_element( item, 'itemId' )
@@ -95,8 +115,6 @@ class Parser():
         ( library_code, err ) = self.parse_element( item, 'libraryCode' )
         log.debug( f', ``{library_code}``' )
         return ( library_code, err )
-
-    ## -- helper --------------------------------
 
     def parse_element ( self, item, tag_name ):
         """ Returns text for given tag-name.

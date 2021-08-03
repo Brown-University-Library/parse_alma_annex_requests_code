@@ -67,16 +67,21 @@ class Controller(object):
 
         ## -- process items
         for item in items:
-            item_id = prsr.parse_item_id( item )
-            item_title = prsr.parse_title( item )
-            item_barcode = prsr.parse_item_barcode( item )
-            patron_name = prsr.parse_patron_name( item )
-            patron_barcode = prsr.parse_patron_barcode( item )
-            patron_note = prsr.parse_patron_note( item )
-            parsed_pickup_library = prsr.parse_pickup_library( item )
-            parsed_library_code = prsr.parse_library_code( item )
-            gfa_entry = prsr.prepare_gfa_entry(
+            ( item_id, err ) = prsr.parse_item_id( item )
+            ( item_title, err ) = prsr.parse_title( item )
+            ( item_barcode, err ) = prsr.parse_item_barcode( item )
+            ( patron_name, err ) = prsr.parse_patron_name( item )
+            ( patron_barcode, err ) = prsr.parse_patron_barcode( item )
+            ( patron_note, err ) = prsr.parse_patron_note( item )
+            ( parsed_pickup_library, err ) = prsr.parse_pickup_library( item )
+            ( parsed_library_code, err ) = prsr.parse_library_code( item )
+            ( gfa_entry, err ) = prsr.prepare_gfa_entry(
                 item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
+
+            if err:
+                message = f'Problem preparing data, ``{err}``; see logs for more info'
+                ## TODO: email admin, or set cron to do this.
+                raise Exception( message )
 
 
 
