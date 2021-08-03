@@ -115,5 +115,59 @@ class Archiver():
         log.debug( f'success, ``{success}``; err, ``{err}``' )
         return ( success, err )
 
+    def send_gfa_count_file( self, count, datetime_stamp, gfa_count_dir ):
+        err = None
+        count_file_name = f'REQ-PARSED_{datetime_stamp}.cnt'
+        count_file_gfa_destination_path = f'{gfa_count_dir}/{count_file_name}'
+        count_str = f'{count}\n'
+        try:
+            with open( count_file_gfa_destination_path, 'w' ) as file_handler:
+                file_handler.write( count_str )
+            log.info( f'count file saved to, ``{count_file_gfa_destination_path}``' )
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'problem on save of count file, ``{err}``' )
+        try:
+            os.chmod( count_file_gfa_destination_path, 0o666 )   # `rw-/rw-/rw-`
+        except Exception as e:
+            log.exception( 'could not set file-permissions on count destination-path' )
+            ## not returning error that would quit processing
+        return err
+
+    def send_gfa_data_file( self, text, datetime_stamp, gfa_data_dir ):
+        err = None
+        data_file_name = f'REQ-PARSED_{datetime_stamp}.dat'
+        data_file_gfa_destination_path = f'{gfa_data_dir}/{data_file_name}'
+        try:
+            with open( data_file_gfa_destination_path, 'w' ) as file_handler:
+                file_handler.write( text )
+            log.info( f'data file saved to, ``{data_file_gfa_destination_path}``' )
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'problem on save of data file, ``{err}``' )
+        try:
+            os.chmod( data_file_gfa_destination_path, 0o666 )   # `rw-/rw-/rw-`
+        except Exception as e:
+            log.exception( 'could not set file-permissions on data destination-path' )
+            ## not returning error that would quit processing
+        return err
+
+        # try:
+        #     count_file_name = 'REQ-PARSED_%s.cnt' % date_stamp
+        #     count_file_las_destination_path = '%s/%s' % ( self.PATH_TO_PARSED_ANNEX_COUNT_DIRECTORY, count_file_name )
+        #     f = open( count_file_las_destination_path, 'w' )
+        #     count_str = '%s' % count + '\n'
+        #     f.write( count_str.encode('utf-8') )
+        #     f.close()
+        #     try:
+        #         os.chmod( count_file_las_destination_path, 0666 )   # rw-/rw-/rw-
+        #     except Exception, e:
+        #         log.info( 'could not set file-permissions on count-destination-path; exception, `%s` -- continuing' % unicode(repr(e)) )
+        #     log.info( 'count file written to: ```%s```' % count_file_las_destination_path )
+        # except Exception, e:
+        #     message = 'problem on save of count file to ```%s```; quitting; exception is: `%s`' % (count_file_las_destination_path, unicode(repr(e)) )
+        #     log.error( message )
+        #     sys.exit( message )
+
 
 ## end class Archiver

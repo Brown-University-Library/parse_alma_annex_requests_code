@@ -27,8 +27,8 @@ class Controller(object):
         self.PATH_TO_SOURCE_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_SOURCE_DIRECTORY']  # to check for new files
         self.PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_ORIGINALS_DIRECTORY']
         self.PATH_TO_ARCHIVES_PARSED_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_PARSED_DIRECTORY']
-        # self.PATH_TO_PARSED_ANNEX_COUNT_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_PARSED_ANNEX_COUNT_DIRECTORY']
-        # self.PATH_TO_PARSED_ANNEX_DATA_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_PARSED_ANNEX_DATA_DIRECTORY']
+        self.PATH_TO_GFA_COUNT_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_GFA_COUNT_DIR']
+        self.PATH_TO_GFA_DATA_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_GFA_DATA_DIR']
         # self.PATH_TO_SOURCE_FILE = os.environ['ANX_ALMA__PATH_TO_SOURCE_FILE']
         # self.PATH_TO_SOURCE_FILE_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_SOURCE_FILE_DIRECTORY']
         # self.parsed_file_archive_path = ''  # created in one function; used in another
@@ -100,11 +100,12 @@ class Controller(object):
         count = len( gfa_items )
 
         ## -- send gfa count & data files -------
-        ( success, err ) = arcvr.send_gfa_files( stringified_data, count, datetime_stamp )
+        err = arcvr.send_gfa_count_file( count, datetime_stamp, self.PATH_TO_GFA_COUNT_DIRECTORY )
         if err:
-            raise Exception( f'Problem sending gfa count-file and data-file, ``{err}``' )
-        if success == False:
-            raise Exception( f'Problem sending gfa count-file and data-file; see logs' )
+            raise Exception( f'Problem sending gfa count-file, ``{err}``' )
+        err = arcvr.send_gfa_data_file( stringified_data, datetime_stamp, self.PATH_TO_GFA_DATA_DIRECTORY )
+        if err:
+            raise Exception( f'Problem sending gfa data-file, ``{err}``' )
 
         ## -- delete original -------------------
         ( success, err ) = arcvr.delete_original()

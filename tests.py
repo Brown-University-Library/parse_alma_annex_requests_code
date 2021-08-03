@@ -85,12 +85,24 @@ class ArchiverTest( unittest.TestCase ):
         self.assertEqual( True, success )
         self.assertEqual( None, err )
 
-    def test_send_gfa_files(self):
-        test_destination_dir = f'{TEST_DIRS_PATH}/test_gfa_output_dir'
+    def test_send_gfa_count_file(self):
+        """ Can't test for success cuz files disappear quickly. """
+        count = 2
+        datetime_stamp = '1960-02-02T08-15-00'
+        test_destination_dir = f'{TEST_DIRS_PATH}/test_gfa_output_dir/count_dir'
         self.clear_dir( test_destination_dir )
-        ( success, err ) = self.arcvr.send_gfa_files( text, count, zzzdatetime_stamp, test_destination_dir  )
-        self.assertEqual( True, success )
+        err = self.arcvr.send_gfa_count_file( count, datetime_stamp, test_destination_dir  )
         self.assertEqual( None, err )
+
+    def test_send_gfa_data_file(self):
+        """ Can't test for success cuz files disappear quickly. """
+        text = 'hello world\nhello again\n'
+        datetime_stamp = '1960-02-02T08-15-00'
+        test_destination_dir = f'{TEST_DIRS_PATH}/test_gfa_output_dir/data_dir'
+        self.clear_dir( test_destination_dir )
+        err = self.arcvr.send_gfa_data_file( text, datetime_stamp, test_destination_dir  )
+        self.assertEqual( None, err )
+
 
     ## -- helpers -------------------------------
 
