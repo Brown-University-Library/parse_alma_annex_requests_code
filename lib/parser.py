@@ -86,6 +86,11 @@ class Parser():
         log.debug( f', ``{patron_note}``' )
         return ( patron_note, err )
 
+    def parse_pickup_library( self, item ):
+        ( pickup_library, err ) = self.parse_element( item, 'library' )
+        log.debug( f', ``{pickup_library}``' )
+        return ( pickup_library, err )
+
 
     def parse_element ( self, item, tag_name ):
         """ Returns text for given tag-name.
