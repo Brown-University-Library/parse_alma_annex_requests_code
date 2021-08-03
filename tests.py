@@ -191,8 +191,15 @@ class ParserTest( unittest.TestCase ):
     def test_prepare_gfa_entry(self):
         ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
-                'z2332679300006966', 'Education.', '31236011508853', 'Ddddd, Bbbbbb', '12345678901234', 'b-test, new-configuration, physical, 2:59pm', 'Rockefeller Library', 'ROCK' )
-        self.assertEqual( 'foo', gfa_entry )
+                '2332679300006966', 'Education.', '31236011508853', 'Ddddd, Bbbbbb', '12345678901234', 'b-test, new-configuration, physical, 2:59pm', 'Rockefeller Library', 'ROCK' )
+        self.assertEqual( '2332679300006966', gfa_entry[0] )
+        self.assertEqual( '31236011508853', gfa_entry[1] )
+        self.assertEqual( 'RO', gfa_entry[2] )
+        self.assertEqual( 'QS', gfa_entry[3] )
+        self.assertEqual( 'Ddddd, Bbbbbb', gfa_entry[4] )
+        self.assertEqual( '12345678901234', gfa_entry[5] )
+        self.assertEqual( 'Education.', gfa_entry[6] )
+        self.assertEqual( 'foo', gfa_entry[7] )
         self.assertEqual( None, err )
 
     ## end class ParserTest()

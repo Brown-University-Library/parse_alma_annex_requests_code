@@ -1,7 +1,8 @@
-import logging, os, pathlib, sys
+import datetime, logging, os, pathlib, sys
 
-import bs4, requests
+import bs4
 from bs4 import BeautifulSoup
+from parse_alma_annex_requests_code.lib import mapper
 
 
 ## settings from env/activate
@@ -28,7 +29,7 @@ class Parser():
         self.item_text = ''
         self.xml_obj = None
 
-    ## -- non-parsing support -------------------
+    ## -- non-parsing methods -------------------
 
     def load_file( self, filepath ):
         ( self.all_text, err ) = ( '', None )
@@ -59,7 +60,6 @@ class Parser():
         log.debug( f'self.items, ``{self.items}``' )
         return ( self.items, err )
 
-
     def prepare_gfa_entry( self, item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code ):
         """ Prepares all GFA data elements. """
         ( gfa_entry, err ) = ( [], None )
@@ -71,7 +71,7 @@ class Parser():
                 ( gfa_location, err ) = self.transform_parsed_library_code( parsed_library_code )
                 if err == None:
                     gfa_entry = [
-                        item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, str(datatime.datetime.now()), patron_note
+                        item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, str(datetime.datetime.now()), patron_note
                     ]
         except Exception as e:
             err = repr( e )
@@ -79,21 +79,29 @@ class Parser():
         log.debug( f'gfa_entry, ``{gfa_entry}``' )
         return ( gfa_entry, err )
 
-
     def transform_parsed_pickup_library( self, parsed_pickup_library ):
-        url = f'https://library.brown.edu/ils_annex_mapper/pickup_api_v2/ils_code_{parsed_pickup_library}'
-        log.debug( f'url, ``{url}``' )
-        hdrs = { 'User-Agent': 'BUL_Alma_Annex_Output_Parser' }
-        response = requests.get( url, headers=hdrs )
+        ( gfa_delivery, err ) = ( '', None )
+        try:
+            assert type( parsed_pickup_library) == str
+            source_dct = mapper.ALMA_PICKUP_TO_GFA_DELIVERY
+            gfa_delivery = source_dct[parsed_pickup_library]
+        except Exception as e:
+            err = repr( e )
+            log.exception( f'problem preparing gfa_delivery, ``{err}``' )
+        log.debug( f'gfa_delivery, ``{gfa_delivery}``' )
+        return ( gfa_delivery, err )
 
-
-
-
-
-
-
-
-
+    def transform_parsed_library_code( self, parsed_library_code ):
+        ( gfa_location, err ) = ( '', None )
+        try:
+            assert type( parsed_library_code) == str
+            source_dct = mapper.ALMA_LIBRARY_CODE_TO_GFA_LOCATION
+            gfa_location = source_dct[parsed_library_code]
+        except Exception as e:
+            err = repr( e )
+            log.exception( f'problem preparing gfa_location, ``{err}``' )
+        log.debug( f'gfa_location, ``{gfa_location}``' )
+        return ( gfa_location, err )
 
     ## -- just parsers ---------------------------
 
