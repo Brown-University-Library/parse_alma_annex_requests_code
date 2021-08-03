@@ -217,11 +217,18 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 'b-test, new-configuration, physical, 2:59pm', patron_note )
         self.assertEqual( None, err )
 
-    def test_parse_pickup_library(self):
+    def test_parse_pickup_library_physical(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         ( pickup_library, err ) = self.prsr.parse_pickup_library( item_list[0] )
         self.assertEqual( 'Rockefeller Library', pickup_library )
+        self.assertEqual( None, err )
+
+    def test_parse_pickup_library_digital(self):
+        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
+        ( item_list, err ) = self.prsr.make_item_list( all_text )
+        ( pickup_library, err ) = self.prsr.parse_pickup_library( item_list[1] )
+        self.assertEqual( 'DIGITAL_REQUEST', pickup_library )
         self.assertEqual( None, err )
 
     def test_parse_library_code(self):
