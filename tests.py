@@ -64,15 +64,18 @@ class ArchiverTest( unittest.TestCase ):
         self.assertTrue( success == False )
         self.assertEqual( 'AssertionError()', err )
 
-    # def test_copy_original_to_archives_success(self):
-    #     self.prep_copy_dirs()
-    #     datetime_stamp = '2021-07-13T14-40-49'
-    #     source_file_path = f'{TEST_DIRS_PATH}/new_file_exists/BUL_ANNEX-foo.xml'
-    #     destination_dir_path = f'{TEST_DIRS_PATH}/copy_original_destination_dir'
-    #     err = self.arcvr.copy_original_to_archives( source_file_path, destination_dir_path, datetime_stamp )
-    #     self.assertEqual( None, err )
-    #     self.assertTrue( 'BUL_ANNEX-foo.xml' in self.arcvr.destination_filepath )
-    #     self.assertTrue( datetime_stamp in self.arcvr.destination_filepath )
+    def test_stringify_gfa_data( self ):
+        gfa_items = [
+            ['a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1', 'i1' ],
+            ['aa2', 'bb2', 'cc2', 'd2', 'e2', 'f2', 'g2', 'h2', 'i2' ],
+        ]
+        ( stringified_data, err ) = self.arcvr.stringify_gfa_data( gfa_items )
+        log.debug( f'stringified_data in test, ``{stringified_data}``' )
+        self.assertEqual(
+            '''"a1","b1","c1","d1","e1","f1","g1","h1","i1"\n"aa2","bb2","cc2","d2","e2","f2","g2","h2","i2"\n''',
+            stringified_data
+            )
+        self.assertTrue( err == None )
 
     ## -- helpers -------------------------------
 

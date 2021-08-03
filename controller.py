@@ -84,8 +84,6 @@ class Controller(object):
                 raise Exception( message )
             gfa_items.append( gfa_entry )
 
-        HEREZZ
-
         ## -- stringify gfa data ----------------
         ( stringified_data, err ) = arcvr.stringify_gfa_data( gfa_items )
 

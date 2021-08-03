@@ -73,6 +73,23 @@ class Archiver():
         log.debug( f'success, ``{success}``; err, ``{err}``' )
         return ( success, err )
 
+    def stringify_gfa_data( self, gfa_items ):
+        """ line elements: [ item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, gfa_date_str, patron_note ] """
+        ( text, err ) = ( '', None )
+        try:
+            text = ''
+            for item in gfa_items:
+                ( item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, gfa_date_str, patron_note ) = ( item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8] )
+                line = '''"%s","%s","%s","%s","%s","%s","%s","%s","%s"''' % (
+                    item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, gfa_date_str, patron_note
+                    )
+                text = text + line + '\n'
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'Problem transforming list of lists into text, ``{err}``' )
+        log.debug( f'text, ``{text}``; err, ``{err}``' )
+        return ( text, err )
+
     # -- common ---------------------------------
 
     def log_and_quit( self, message ):
