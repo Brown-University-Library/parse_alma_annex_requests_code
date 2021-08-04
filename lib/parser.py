@@ -81,26 +81,6 @@ class Parser():
         log.debug( f'gfa_entry, ``{gfa_entry}``' )
         return ( gfa_entry, err )
 
-    # def prepare_gfa_entry( self, item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code ):
-    #     """ Prepares all GFA data elements. """
-    #     ( gfa_entry, err ) = ( [], None )
-    #     try:
-    #         for element in [ item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code ]:
-    #             assert type( element ) == str
-    #         ( gfa_delivery, err ) = self.transform_parsed_pickup_library( parsed_pickup_library )
-    #         if err == None:
-    #             ( gfa_location, err ) = self.transform_parsed_library_code( parsed_library_code )
-    #             if err == None:
-    #                 gfa_entry = [
-    #                     item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, self.prepare_gfa_datetime(), patron_note
-    #                 ]
-    #         log.debug( f'gfa_entry, ``{gfa_entry}``' )
-    #     except Exception as e:
-    #         err = repr( e )
-    #         log.exception( f'problem preparing gfa entry, ``{err}``' )
-    #     log.debug( f'gfa_entry, ``{gfa_entry}``' )
-    #     return ( gfa_entry, err )
-
     def transform_parsed_pickup_library( self, parsed_pickup_library ):
         ( gfa_delivery, err ) = ( '', None )
         try:
@@ -131,18 +111,6 @@ class Parser():
             log.exception( f'problem preparing gfa_location, ``{err}``' )
         log.debug( f'gfa_location, ``{gfa_location}``' )
         return ( gfa_location, err )
-
-    # def transform_parsed_library_code( self, parsed_library_code ):
-    #     ( gfa_location, err ) = ( '', None )
-    #     try:
-    #         assert type( parsed_library_code) == str
-    #         source_dct = mapper.ALMA_LIBRARY_CODE_TO_GFA_LOCATION
-    #         gfa_location = source_dct[parsed_library_code]
-    #     except Exception as e:
-    #         err = repr( e )
-    #         log.exception( f'problem preparing gfa_location, ``{err}``' )
-    #     log.debug( f'gfa_location, ``{gfa_location}``' )
-    #     return ( gfa_location, err )
 
     def prepare_gfa_datetime( self, datetime_obj=None ):
         """ In practice, no datetime-object will be passed in, but the 'datetime_obj=None' allows for easy testing. """
@@ -196,11 +164,6 @@ class Parser():
             interpreted_pickup_library = pickup_library
         log.debug( f'interpreted_pickup_library, ``{interpreted_pickup_library}``' )
         return ( interpreted_pickup_library, err )
-
-    # def parse_pickup_library( self, item ):
-    #     ( pickup_library, err ) = self.parse_element( item, 'library' )
-    #     log.debug( f', ``{pickup_library}``' )
-    #     return ( pickup_library, err )
 
     def parse_library_code( self, item ):
         ( library_code, err ) = self.parse_element( item, 'libraryCode' )

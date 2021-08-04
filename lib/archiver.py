@@ -153,22 +153,4 @@ class Archiver():
             ## not returning error that would quit processing
         return err
 
-        # try:
-        #     count_file_name = 'REQ-PARSED_%s.cnt' % date_stamp
-        #     count_file_las_destination_path = '%s/%s' % ( self.PATH_TO_PARSED_ANNEX_COUNT_DIRECTORY, count_file_name )
-        #     f = open( count_file_las_destination_path, 'w' )
-        #     count_str = '%s' % count + '\n'
-        #     f.write( count_str.encode('utf-8') )
-        #     f.close()
-        #     try:
-        #         os.chmod( count_file_las_destination_path, 0666 )   # rw-/rw-/rw-
-        #     except Exception, e:
-        #         log.info( 'could not set file-permissions on count-destination-path; exception, `%s` -- continuing' % unicode(repr(e)) )
-        #     log.info( 'count file written to: ```%s```' % count_file_las_destination_path )
-        # except Exception, e:
-        #     message = 'problem on save of count file to ```%s```; quitting; exception is: `%s`' % (count_file_las_destination_path, unicode(repr(e)) )
-        #     log.error( message )
-        #     sys.exit( message )
-
-
 ## end class Archiver
