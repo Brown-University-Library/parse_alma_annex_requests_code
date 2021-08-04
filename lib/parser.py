@@ -121,7 +121,7 @@ class Parser():
         try:
             assert type( parsed_library_code) == str
             assert type( gfa_delivery ) == str
-            if gfa_delivery == 'DIGITAL_REQUEST':
+            if gfa_delivery == 'ED':
                 gfa_location = 'ED'
             else:
                 source_dct = mapper.ALMA_LIBRARY_CODE_TO_GFA_LOCATION
