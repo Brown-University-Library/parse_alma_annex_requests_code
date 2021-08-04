@@ -1,4 +1,4 @@
-import datetime, logging, os, pprint, shutil, smtplib, sys
+import datetime, json, logging, os, pprint, shutil, smtplib, sys
 # from email.Header import Header
 from email.mime.text import MIMEText
 
@@ -29,10 +29,7 @@ class Controller(object):
         self.PATH_TO_ARCHIVES_PARSED_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_ARCHIVED_PARSED_DIRECTORY']
         self.PATH_TO_GFA_COUNT_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_GFA_COUNT_DIR']
         self.PATH_TO_GFA_DATA_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_GFA_DATA_DIR']
-        # self.PATH_TO_SOURCE_FILE = os.environ['ANX_ALMA__PATH_TO_SOURCE_FILE']
-        # self.PATH_TO_SOURCE_FILE_DIRECTORY = os.environ['ANX_ALMA__PATH_TO_SOURCE_FILE_DIRECTORY']
-        # self.parsed_file_archive_path = ''  # created in one function; used in another
-        # self.parsed_file_name = ''  # created in one function; used in another
+        self.DEV_MODE = json.loads( os.environ['ANX_ALMA__DEV_MODE'] )  # in dev-mode, new-original will not be deleted
 
     def process_requests( self ):
         """ Steps caller.
@@ -108,12 +105,13 @@ class Controller(object):
             raise Exception( f'Problem sending gfa data-file, ``{err}``' )
 
         ## -- delete original -------------------
-        ( success, err ) = arcvr.delete_original()
-        if err:
-            raise Exception( f'Problem deleting original file, ``{err}``' )
-        if success == False:
-            raise Exception( f'Problem deleting original file; see logs' )
-
+        log.debug( f'self.DEV_MODE, ``{self.DEV_MODE}``' )
+        if self.DEV_MODE == True:
+            pass
+        else:
+            err = arcvr.delete_original( source_file_path )
+            if err:
+                raise Exception( f'Problem deleting original file, ``{err}``' )
         log.debug( '-- processing complete --' )
 
     ## end class Controller()

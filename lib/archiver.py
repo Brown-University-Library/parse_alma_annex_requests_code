@@ -153,4 +153,20 @@ class Archiver():
             ## not returning error that would quit processing
         return err
 
+    def delete_original( self, source_file_path ):
+        err = None
+        try:
+            log.debug( f'source_file_path, ``{source_file_path}``' )
+            assert type(source_file_path) == str
+            os.remove( source_file_path )
+            ## check that it's not there
+            source_path_obj = pathlib.Path( source_file_path )
+            log.debug( f'source_path_obj, ``{source_path_obj}``' )
+            assert source_path_obj.exists() == False
+        except Exception as e:
+            err = repr(e)
+            log.exception( f'Problem deleting original file, ``{err}``' )
+        log.debug( f'err, ``{err}``' )
+        return err
+
 ## end class Archiver
