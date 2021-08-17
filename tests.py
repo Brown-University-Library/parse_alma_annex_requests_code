@@ -138,6 +138,8 @@ class ArchiverTest( unittest.TestCase ):
         dir_contents = os.listdir( destination_dir )
         log.debug( f'dir_contents, ``{dir_contents}``' )
         for item in dir_contents:
+            if 'keep.txt' in item:
+                continue
             item_path = f'{destination_dir}/{item}'
             try:
                 os.remove( item_path )
@@ -146,6 +148,19 @@ class ArchiverTest( unittest.TestCase ):
                 log.exception( f'problem deleting found file, ``{item_path}``' )
                 pass
         return
+
+    # def clear_dir( self, destination_dir ):
+    #     dir_contents = os.listdir( destination_dir )
+    #     log.debug( f'dir_contents, ``{dir_contents}``' )
+    #     for item in dir_contents:
+    #         item_path = f'{destination_dir}/{item}'
+    #         try:
+    #             os.remove( item_path )
+    #             log.debug( f'item, ``{item_path}`` successfully deleted' )
+    #         except Exception as e:
+    #             log.exception( f'problem deleting found file, ``{item_path}``' )
+    #             pass
+    #     return
 
     ## end class ArchiverTest()
 
