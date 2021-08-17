@@ -18,6 +18,7 @@ logging.basicConfig(
     datefmt='%d/%b/%Y %H:%M:%S',
     )
 log = logging.getLogger(__name__)
+log.debug( 'test-logging ready' )
 
 
 class ArchiverTest( unittest.TestCase ):
