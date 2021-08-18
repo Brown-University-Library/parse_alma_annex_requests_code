@@ -43,7 +43,9 @@ class Controller(object):
         if err:
             raise Exception( f'Problem checking for new file, ``{err}``' )
         if new_file_name == '':
-            log.info( 'no annex requests found; quitting' )
+            message = 'no annex requests found; quitting\n\n'
+            log.info( message )
+            sys.exit( message )
 
         ## -- archive original ------------------
         source_file_path = f'{self.PATH_TO_SOURCE_DIRECTORY}/{new_file_name}'
