@@ -303,7 +303,7 @@ class ParserTest( unittest.TestCase ):
     def test_prepare_gfa_entry__rock_from_personal(self):
         ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
-                '23334087800006966', 'Southern medical journal.', '31236070043131', 'Mmmmmmmm, Mmm', '12345678901234', 'b-test, new-configuration, physical-hay, 2:59pm', 'John Hay Library', 'HAY' )
+                '23319705570006966', 'Taiwan tian zhu jiao shi liao hui bian / Gu Weiying bian.', '31236093072141', 'Nnnnnnnn, Rrrrrrr', '12345678901234', 'b-test, new-configuration, physical-personal-deliver, 2:59pm', 'PERSONAL_DELIVERY', '' )
         self.assertEqual( 'foo', gfa_entry[0] )
         self.assertEqual( '31236070043131', gfa_entry[1] )
         self.assertEqual( 'HA', gfa_entry[2] )

@@ -14,6 +14,7 @@ ALMA_PICKUP_TO_GFA_DELIVERY = {
     'Library Coll Annex': 'AN',
     'ORWIG': 'OR',
     'Orwig Music Library': 'OR',
+    'PERSONAL_DELIVERY': 'RO',  # 2021-Aug-23 -- until I hear otherwise
     'ROCK': 'RO',
     'Rockefeller Library': 'RO',
     'SCI': 'SC',
