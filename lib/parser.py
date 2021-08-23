@@ -96,6 +96,22 @@ class Parser():
         log.debug( f'gfa_delivery, ``{gfa_delivery}``' )
         return ( gfa_delivery, err )
 
+    # def transform_parsed_library_code( self, parsed_library_code, gfa_delivery ):
+    #     ( gfa_location, err ) = ( '', None )
+    #     try:
+    #         assert type( parsed_library_code) == str
+    #         assert type( gfa_delivery ) == str
+    #         if gfa_delivery == 'ED':
+    #             gfa_location = 'ED'
+    #         else:
+    #             source_dct = mapper.ALMA_LIBRARY_CODE_TO_GFA_LOCATION
+    #             gfa_location = source_dct[parsed_library_code]
+    #     except Exception as e:
+    #         err = repr( e )
+    #         log.exception( f'problem preparing gfa_location, ``{err}``' )
+    #     log.debug( f'gfa_location, ``{gfa_location}``' )
+    #     return ( gfa_location, err )
+
     def transform_parsed_library_code( self, parsed_library_code, gfa_delivery ):
         ( gfa_location, err ) = ( '', None )
         try:
@@ -103,6 +119,8 @@ class Parser():
             assert type( gfa_delivery ) == str
             if gfa_delivery == 'ED':
                 gfa_location = 'ED'
+            elif gfa_delivery == 'RO':  # implemented to handle ALMA pickup-location `PERSONAL_DELIVERY`
+                gfa_location = 'QS'
             else:
                 source_dct = mapper.ALMA_LIBRARY_CODE_TO_GFA_LOCATION
                 gfa_location = source_dct[parsed_library_code]
