@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xb:rsExportList xmlns:xb="http://com/exlibris/urm/rep/externalsysremotestorage/xmlbeans">
+
   <xb:rsExport>
     <xb:requestType>PATRON_PHYSICAL</xb:requestType>
     <xb:requestId>2404662150006966</xb:requestId>
@@ -19,7 +20,7 @@
       <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
       <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
-      <xb:patronAddress>Brown University PO BOX I University Library- Integrated Technology Services WorkDay Location - Sciences Library</xb:patronAddress>
+      <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
       <xb:city>Providence</xb:city>
@@ -41,41 +42,48 @@
       <xb:dateOfPublication>1880-</xb:dateOfPublication>
     </xb:bibliographicInformation>
   </xb:rsExport>
+
   <xb:rsExport>
-    <xb:requestType>PHYSICAL_TO_DIGITIZATION</xb:requestType>
-    <xb:requestId>2404662540006966</xb:requestId>
+    <xb:requestType>PATRON_PHYSICAL</xb:requestType>
+    <xb:requestId>4515297460006966</xb:requestId>
     <xb:pickup>
-      <xb:library>Brown University</xb:library>
-      <xb:desk>Digitization Department For Institution</xb:desk>
+      <xb:library>John Hay Library</xb:library>
     </xb:pickup>
     <xb:operationalRecordinformation>
       <xb:call_number_type>0</xb:call_number_type>
-      <xb:permanent_call_number>QA1 .M3235</xb:permanent_call_number>
-      <xb:permanent_physical_location_code>STORAGE</xb:permanent_physical_location_code>
+      <xb:permanent_call_number>R11;.S65x</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>HAYSTOR</xb:permanent_physical_location_code>
     </xb:operationalRecordinformation>
-    <xb:barcode>31236101982760</xb:barcode>
-    <xb:mmsId>991010566029706966</xb:mmsId>
-    <xb:itemId>2363588140006966</xb:itemId>
-    <xb:title>Mathematics education.</xb:title>
-    <xb:requestedInfo>
-      <xb:description>1 (1947-1948)</xb:description>
-      <xb:partToDigitize>b-test, new-configuration, digitization, 2021-Jul-07,3:01pm</xb:partToDigitize>
-    </xb:requestedInfo>
+    <xb:barcode>31236070043131</xb:barcode>
+    <xb:mmsId>991007811299706966</xb:mmsId>
+    <xb:itemId>23334087800006966</xb:itemId>
+    <xb:title>Southern medical journal.</xb:title>
     <xb:patronInfo>
-      <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
+      <xb:patronName>Mmmmmmmm, Mmm</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
+      <xb:patronEmail>mmm_mmmmmmmm@brown.edu</xb:patronEmail>
+      <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
-    <xb:shipAddress />
-    <xb:digitizationDepartmentCode>DIGI_DEPT_INST</xb:digitizationDepartmentCode>
-    <xb:requestNote>b-test, new-configuration, digitization, 2021-Jul-07,3:01pm</xb:requestNote>
+    <xb:shipAddress>
+      <xb:city>Providence</xb:city>
+      <xb:country>USA</xb:country>
+      <xb:line1>John Hay Library</xb:line1>
+      <xb:line2>20 Prospect Street</xb:line2>
+      <xb:line3>Box A</xb:line3>
+      <xb:line4 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:line5 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:postalCode>2912</xb:postalCode>
+      <xb:stateProvince>RI</xb:stateProvince>
+    </xb:shipAddress>
+    <xb:libraryCode>HAY</xb:libraryCode>
     <xb:bibliographicInformation>
-      <xb:author>Japan Society of Mathematical Education.</xb:author>
-      <xb:issn>0021-471X</xb:issn>
-      <xb:placeOfPublication>Tokyo,</xb:placeOfPublication>
-      <xb:dateOfPublication>1947</xb:dateOfPublication>
+      <xb:author>Southern Medical Association.</xb:author>
+      <xb:issn>0038-4348</xb:issn>
+      <xb:placeOfPublication>[Birmingham, Ala., etc.]</xb:placeOfPublication>
+      <xb:dateOfPublication>1908</xb:dateOfPublication>
     </xb:bibliographicInformation>
   </xb:rsExport>
+
   <xb:rsExport>
     <xb:requestType>PATRON_PHYSICAL</xb:requestType>
     <xb:requestId>2404663520006966</xb:requestId>
@@ -95,7 +103,7 @@
       <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
       <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
-      <xb:patronAddress>Brown University PO BOX I University Library- Integrated Technology Services WorkDay Location - Sciences Library</xb:patronAddress>
+      <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
       <xb:city>Providence</xb:city>
@@ -117,41 +125,7 @@
       <xb:dateOfPublication>©2003.</xb:dateOfPublication>
     </xb:bibliographicInformation>
   </xb:rsExport>
-  <xb:rsExport>
-    <xb:requestType>PHYSICAL_TO_DIGITIZATION</xb:requestType>
-    <xb:requestId>2404663670006966</xb:requestId>
-    <xb:pickup>
-      <xb:library>Brown University</xb:library>
-      <xb:desk>Digitization Department For Institution</xb:desk>
-    </xb:pickup>
-    <xb:operationalRecordinformation>
-      <xb:call_number_type>0</xb:call_number_type>
-      <xb:permanent_call_number>HM216 .S53 1994</xb:permanent_call_number>
-      <xb:permanent_physical_location_code>STORAGE</xb:permanent_physical_location_code>
-    </xb:operationalRecordinformation>
-    <xb:barcode>31236011564070</xb:barcode>
-    <xb:mmsId>991008520379706966</xb:mmsId>
-    <xb:itemId>2332159400006966</xb:itemId>
-    <xb:title>Geography and social justice / David M. Smith.</xb:title>
-    <xb:requestedInfo>
-      <xb:description xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
-      <xb:partToDigitize>b-test, new-configuration, digitization, 2021-Jul-07,3:38pm</xb:partToDigitize>
-    </xb:requestedInfo>
-    <xb:patronInfo>
-      <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
-      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
-    </xb:patronInfo>
-    <xb:shipAddress />
-    <xb:digitizationDepartmentCode>DIGI_DEPT_INST</xb:digitizationDepartmentCode>
-    <xb:requestNote>b-test, new-configuration, digitization, 2021-Jul-07,3:38pm</xb:requestNote>
-    <xb:bibliographicInformation>
-      <xb:author>Smith, David M.</xb:author>
-      <xb:isbn>0631190260 (pbk. : alk. paper)</xb:isbn>
-      <xb:placeOfPublication>Oxford, UK :</xb:placeOfPublication>
-      <xb:dateOfPublication>1994.</xb:dateOfPublication>
-    </xb:bibliographicInformation>
-  </xb:rsExport>
+
   <xb:rsExport>
     <xb:requestType>PATRON_PHYSICAL</xb:requestType>
     <xb:requestId>2404663940006966</xb:requestId>
@@ -171,7 +145,7 @@
       <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
       <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
-      <xb:patronAddress>Brown University PO BOX I University Library- Integrated Technology Services WorkDay Location - Sciences Library</xb:patronAddress>
+      <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
       <xb:city>Providence</xb:city>
@@ -193,4 +167,5 @@
       <xb:dateOfPublication>©2000.</xb:dateOfPublication>
     </xb:bibliographicInformation>
   </xb:rsExport>
+
 </xb:rsExportList>

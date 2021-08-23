@@ -167,7 +167,7 @@ class Parser():
 
     def parse_library_code( self, item ):
         ( library_code, err ) = self.parse_element( item, 'libraryCode' )
-        log.debug( f', ``{library_code}``' )
+        log.debug( f'library_code, ``{library_code}``' )
         return ( library_code, err )
 
     def parse_element ( self, item, tag_name ):
