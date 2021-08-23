@@ -31,6 +31,7 @@ ALMA_LIBRARY_CODE_TO_GFA_LOCATION = {
     'ANNEX': 'QS',
     'ANNEX_HAY': 'QH',
     'Electronic Delivery': 'ED',
+    'HAY': 'QH',
     'ORWIG': 'QS',
     'ROCK': 'QS',
     'SCI': 'QS'

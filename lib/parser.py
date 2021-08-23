@@ -158,7 +158,7 @@ class Parser():
         log.debug( f'request_type, ``{request_type}``' )
         if request_type == 'PHYSICAL_TO_DIGITIZATION':
             interpreted_pickup_library = 'DIGITAL_REQUEST'
-        else:
+        else:  # "PATRON_PHYSICAL"
             ( pickup_library, err ) = self.parse_element( item, 'library' )
             log.debug( f'pickup_library, ``{pickup_library}``' )
             interpreted_pickup_library = pickup_library

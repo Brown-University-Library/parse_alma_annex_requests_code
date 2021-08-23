@@ -244,7 +244,7 @@ class ParserTest( unittest.TestCase ):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         ( pickup_library, err ) = self.prsr.parse_pickup_library( item_list[1] )
-        self.assertEqual( 'DIGITAL_REQUEST', pickup_library )
+        self.assertEqual( 'John Hay Library', pickup_library )
         self.assertEqual( None, err )
 
     def test_parse_library_code(self):
@@ -258,10 +258,10 @@ class ParserTest( unittest.TestCase ):
         datetime_obj = datetime.datetime( 1960, 2, 2, 1, 15, 30 )
         self.assertEqual( 'Tue Feb 02 1960', self.prsr.prepare_gfa_datetime(datetime_obj) )
 
-    def test_prepare_gfa_entry(self):
+    def test_prepare_gfa_entry__rock(self):
         ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
-                '2332679300006966', 'Education.', '31236011508853', 'Ddddd, Bbbbbb', '12345678901234', 'b-test, new-configuration, physical, 2:59pm', 'Rockefeller Library', 'ROCK' )
+                '2332679300006966', 'Education.', '31236011508853', 'Ddddd, Bbbbbb', '12345678901234', 'b-test, new-configuration, physical-rock, 2:59pm', 'Rockefeller Library', 'ROCK' )
         self.assertEqual( '2332679300006966', gfa_entry[0] )
         self.assertEqual( '31236011508853', gfa_entry[1] )
         self.assertEqual( 'RO', gfa_entry[2] )
@@ -269,6 +269,20 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 'Ddddd, Bbbbbb', gfa_entry[4] )
         self.assertEqual( '12345678901234', gfa_entry[5] )
         self.assertEqual( 'Education.', gfa_entry[6] )
+        self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
+        self.assertEqual( None, err )
+
+    def test_prepare_gfa_entry__hay(self):
+        ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
+        ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
+                '23334087800006966', 'Southern medical journal.', '31236070043131', 'Mmmmmmmm, Mmm', '12345678901234', 'b-test, new-configuration, physical-hay, 2:59pm', 'John Hay Library', 'HAY' )
+        self.assertEqual( '23334087800006966', gfa_entry[0] )
+        self.assertEqual( '31236070043131', gfa_entry[1] )
+        self.assertEqual( 'HA', gfa_entry[2] )
+        self.assertEqual( 'QH', gfa_entry[3] )
+        self.assertEqual( 'Mmmmmmmm, Mmm', gfa_entry[4] )
+        self.assertEqual( '12345678901234', gfa_entry[5] )
+        self.assertEqual( 'Southern medical journal.', gfa_entry[6] )
         self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
         self.assertEqual( None, err )
 
