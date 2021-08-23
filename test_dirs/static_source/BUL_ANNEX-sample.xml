@@ -86,6 +86,46 @@
 
   <xb:rsExport>
     <xb:requestType>PATRON_PHYSICAL</xb:requestType>
+    <xb:requestId>4503518040006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>PERSONAL_DELIVERY</xb:library>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:call_number_type>0</xb:call_number_type>
+      <xb:permanent_call_number>BX1667.5 .T35x 2008</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>RKSTORAGE</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>31236093072141</xb:barcode>
+    <xb:mmsId>991018586999706966</xb:mmsId>
+    <xb:itemId>23319705570006966</xb:itemId>
+    <xb:title>Taiwan tian zhu jiao shi liao hui bian / Gu Weiying bian.</xb:title>
+    <xb:patronInfo>
+      <xb:patronName>Nnnnnnnn, Rrrrrrr</xb:patronName>
+      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
+      <xb:patronEmail>rrrrrrr_nnnnnnnn@brown.edu</xb:patronEmail>
+      <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
+    </xb:patronInfo>
+    <xb:shipAddress>
+      <xb:city>Providence</xb:city>
+      <xb:country>USA</xb:country>
+      <xb:line1>Brown University</xb:line1>
+      <xb:line2>PO BOX N</xb:line2>
+      <xb:line3>History</xb:line3>
+      <xb:line4>WorkDay Location - Peter Green House</xb:line4>
+      <xb:line5 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:postalCode>02912</xb:postalCode>
+      <xb:stateProvince>RI</xb:stateProvince>
+    </xb:shipAddress>
+    <xb:bibliographicInformation>
+      <xb:author>Gu, Weiying,</xb:author>
+      <xb:isbn>9860169624</xb:isbn>
+      <xb:placeOfPublication>Taibei Shi :</xb:placeOfPublication>
+      <xb:dateOfPublication>2008.</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
+
+  <xb:rsExport>
+    <xb:requestType>PATRON_PHYSICAL</xb:requestType>
     <xb:requestId>2404663520006966</xb:requestId>
     <xb:pickup>
       <xb:library>Rockefeller Library</xb:library>
