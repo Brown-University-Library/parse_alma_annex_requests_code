@@ -150,19 +150,6 @@ class ArchiverTest( unittest.TestCase ):
                 pass
         return
 
-    # def clear_dir( self, destination_dir ):
-    #     dir_contents = os.listdir( destination_dir )
-    #     log.debug( f'dir_contents, ``{dir_contents}``' )
-    #     for item in dir_contents:
-    #         item_path = f'{destination_dir}/{item}'
-    #         try:
-    #             os.remove( item_path )
-    #             log.debug( f'item, ``{item_path}`` successfully deleted' )
-    #         except Exception as e:
-    #             log.exception( f'problem deleting found file, ``{item_path}``' )
-    #             pass
-    #     return
-
     ## end class ArchiverTest()
 
 
@@ -244,44 +231,44 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 'Full text needed for fall course reserves: LITR0310T Thank you!', patron_note )
         self.assertEqual( None, err )
 
-    def test_parse_pickup_library(self):
+    def test_parse_alma_pickup_library(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         expecteds = [
             'Rockefeller Library',
             'John Hay Library',
-            'PERSONAL_DELIVERY',  # weird item
+            'PERSONAL_DELIVERY',    # weird 'personal-delivery' item
             'Rockefeller Library',
             'Rockefeller Library',
-            'DIGITAL_REQUEST',
+            'DIGITAL_REQUEST',      # hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
             'Rockefeller Library' ]
         for ( index, item ) in enumerate( item_list):
-            ( pickup_library, err ) = self.prsr.parse_pickup_library( item )
+            ( pickup_library, err ) = self.prsr.parse_alma_pickup_library( item )
             self.assertEqual( None, err )
             self.assertEqual( expecteds[index], pickup_library )
 
-    def test_parse_library_code(self):
+    def test_parse_alma_library_code(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         expecteds = [
             'ROCK',
             'HAY',
-            '',  # weird 'personal-delivery' item
+            '',                     # weird 'personal-delivery' item
             'ROCK',
             'ROCK',
-            '',  # digitization request
+            '',                     # hay digitization request
             'ROCK' ]
         for ( index, item ) in enumerate( item_list):
-            ( library_code, err ) = self.prsr.parse_library_code( item )
+            ( alma_library_code, err ) = self.prsr.parse_alma_library_code( item )
             self.assertEqual( None, err )
-            self.assertEqual( expecteds[index], library_code )
+            self.assertEqual( expecteds[index], alma_library_code )
 
     def test_prepare_gfa_date(self):
         datetime_obj = datetime.datetime( 1960, 2, 2, 1, 15, 30 )
         self.assertEqual( 'Tue Feb 02 1960', self.prsr.prepare_gfa_datetime(datetime_obj) )
 
     def test_prepare_gfa_entry__rock(self):
-        ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
+        ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_alma_pickup_library, parsed_alma_library_code )
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
                 '2332679300006966', 'Education.', '31236011508853', 'Ddddd, Bbbbbb', '12345678901234', 'b-test, new-configuration, physical-rock, 2:59pm', 'Rockefeller Library', 'ROCK' )
         self.assertEqual( '2332679300006966', gfa_entry[0] )
@@ -295,7 +282,8 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( None, err )
 
     def test_prepare_gfa_entry__hay(self):
-        ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
+        ## submission: ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_alma_pickup_library, parsed_alma_library_code )
+        ## returned: [ 'item_id', item_barcode, gfa-delivery-code, gfa-location-code, patron_name, patron_barcode, title, date, note ]
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
                 '23334087800006966', 'Southern medical journal.', '31236070043131', 'Mmmmmmmm, Mmm', '12345678901234', 'b-test, new-configuration, physical-hay, 2:59pm', 'John Hay Library', 'HAY' )
         self.assertEqual( '23334087800006966', gfa_entry[0] )
@@ -309,7 +297,8 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( None, err )
 
     def test_prepare_gfa_entry__rock_from_personal(self):
-        ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
+        ## submission: ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_alma_pickup_library, parsed_alma_library_code )
+        ## returned: [ 'item_id', item_barcode, gfa-delivery-code, gfa-location-code, patron_name, patron_barcode, title, date, note ]
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
                 '23319705570006966', 'Taiwan tian zhu jiao shi liao hui bian / Gu Weiying bian.', '31236093072141', 'Nnnnnnnn, Rrrrrrr', '12345678901234', 'b-test, new-configuration, physical-personal-deliver, 2:59pm', 'PERSONAL_DELIVERY', '' )
         self.assertEqual( '23319705570006966', gfa_entry[0] )
@@ -323,7 +312,8 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( None, err )
 
     def test_prepare_gfa_entry__from_non_hay_digitization(self):
-        ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
+        ## submission: ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_alma_pickup_library, parsed_alma_library_code )
+        ## returned: [ 'item_id', item_barcode, gfa-delivery-code, gfa-location-code, patron_name, patron_barcode, title, date, note ]
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
                 '23252022350006966',
                 'Spit temple : the selected performances of Cecilia Vicuña / edited by Rosa Alcalá',
@@ -333,13 +323,14 @@ class ParserTest( unittest.TestCase ):
                 'Full text needed for fall course reserves: LITR0310T Thank you!',
                 'DIGITAL_REQUEST',
                 '' )
+        log.debug( 'hereZZ' )
         self.assertEqual( '23252022350006966', gfa_entry[0] )
         self.assertEqual( '31236098095956', gfa_entry[1] )
         self.assertEqual( 'ED', gfa_entry[2] )
-        self.assertEqual( 'QS', gfa_entry[3] )
-        self.assertEqual( 'Nnnnnnnn, Rrrrrrr', gfa_entry[4] )
+        self.assertEqual( 'QS', gfa_entry[3] )  # 2021-August-26: yes, normally 'QS' refers to Rock items, but the current GFA ED configuration only works when the
+        self.assertEqual( 'Kkkkkkk, Jjjjjjjj', gfa_entry[4] )
         self.assertEqual( '12345678901234', gfa_entry[5] )
-        self.assertEqual( 'Taiwan tian zhu jiao shi liao hui bian / Gu Weiying bian.', gfa_entry[6] )
+        self.assertEqual( 'Spit temple : the selected performances of Cecilia Vicuña / edited by Rosa Alcalá', gfa_entry[6] )
         self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
         self.assertEqual( None, err )
 
