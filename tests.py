@@ -181,7 +181,7 @@ class ParserTest( unittest.TestCase ):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( items, err ) = self.prsr.make_item_list( all_text )
         self.assertEqual( bs4.element.ResultSet, type(items) )
-        self.assertEqual( 5, len(items) )
+        self.assertEqual( 7, len(items) )
         self.assertEqual( bs4.element.Tag, type(items[0]) )
 
     def test_parse_item_id(self):
@@ -194,23 +194,27 @@ class ParserTest( unittest.TestCase ):
     def test_parse_item_title(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( title, err ) = self.prsr.parse_item_title( item_list[0] )
-        self.assertEqual( 'Education.', title )
-        self.assertEqual( None, err )
-
-    def test_parse_title_no_title(self):
-        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX_no_title.xml' )
-        ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( title, err ) = self.prsr.parse_item_title( item_list[0] )
-        self.assertEqual( '', title )
-        self.assertEqual( None, err )
+        expecteds = [
+            'Education.',
+            'Southern medical journal.',
+            'Taiwan tian zhu jiao shi liao hui bian / Gu Weiying bian.',
+            'Clinical engineering / edited by Yadin David [and others]',
+            'Native American spirituality : a critical reader / edited by Lee Irwin.',
+            'Spit temple : the selected performances of Cecilia Vicuña / edited by Rosa Alcalá',
+            '' ]
+        for ( index, item ) in enumerate( item_list):
+            ( title, err ) = self.prsr.parse_item_title( item )
+            self.assertEqual( None, err )
+            self.assertEqual( expecteds[index], title )
 
     def test_parse_item_barcode(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( item_barcode, err ) = self.prsr.parse_item_barcode( item_list[0] )
-        self.assertEqual( '31236011508853', item_barcode )
-        self.assertEqual( None, err )
+        expecteds = [ '31236011508853', '31236070043131', '31236093072141', '31236018330830', '31236015311965', '31236098095956', '31236011508853' ]
+        for ( index, item ) in enumerate( item_list):
+            ( item_barcode, err ) = self.prsr.parse_item_barcode( item )
+            self.assertEqual( None, err )
+            self.assertEqual( expecteds[index], item_barcode )
 
     def test_parse_patron_name(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
@@ -226,47 +230,51 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( '12345678901234', patron_barcode )
         self.assertEqual( None, err )
 
-    def test_parse_patron_note(self):
+    def test_parse_patron_note_physical(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         ( patron_note, err ) = self.prsr.parse_patron_note( item_list[0] )
         self.assertEqual( 'b-test, new-configuration, physical, 2:59pm', patron_note )
         self.assertEqual( None, err )
 
-    def test_parse_pickup_library_physical(self):
+    def test_parse_patron_note_digital(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( pickup_library, err ) = self.prsr.parse_pickup_library( item_list[0] )
-        self.assertEqual( 'Rockefeller Library', pickup_library )
+        ( patron_note, err ) = self.prsr.parse_patron_note( item_list[5] )
+        self.assertEqual( 'Full text needed for fall course reserves: LITR0310T Thank you!', patron_note )
         self.assertEqual( None, err )
 
-    def test_parse_pickup_library_digital(self):
+    def test_parse_pickup_library(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( pickup_library, err ) = self.prsr.parse_pickup_library( item_list[1] )
-        self.assertEqual( 'John Hay Library', pickup_library )
-        self.assertEqual( None, err )
-
-    def test_parse_pickup_library_personal(self):
-        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
-        ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( pickup_library, err ) = self.prsr.parse_pickup_library( item_list[2] )
-        self.assertEqual( 'PERSONAL_DELIVERY', pickup_library )
-        self.assertEqual( None, err )
+        expecteds = [
+            'Rockefeller Library',
+            'John Hay Library',
+            'PERSONAL_DELIVERY',  # weird item
+            'Rockefeller Library',
+            'Rockefeller Library',
+            'DIGITAL_REQUEST',
+            'Rockefeller Library' ]
+        for ( index, item ) in enumerate( item_list):
+            ( pickup_library, err ) = self.prsr.parse_pickup_library( item )
+            self.assertEqual( None, err )
+            self.assertEqual( expecteds[index], pickup_library )
 
     def test_parse_library_code(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( library_code, err ) = self.prsr.parse_library_code( item_list[0] )
-        self.assertEqual( 'ROCK', library_code )
-        self.assertEqual( None, err )
-
-    def test_parse_library_code_personal(self):
-        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
-        ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( library_code, err ) = self.prsr.parse_library_code( item_list[2] )
-        self.assertEqual( '', library_code )  # the 'personal' items have no library-code
-        self.assertEqual( None, err )
+        expecteds = [
+            'ROCK',
+            'HAY',
+            '',  # weird 'personal-delivery' item
+            'ROCK',
+            'ROCK',
+            '',  # digitization request
+            'ROCK' ]
+        for ( index, item ) in enumerate( item_list):
+            ( library_code, err ) = self.prsr.parse_library_code( item )
+            self.assertEqual( None, err )
+            self.assertEqual( expecteds[index], library_code )
 
     def test_prepare_gfa_date(self):
         datetime_obj = datetime.datetime( 1960, 2, 2, 1, 15, 30 )
@@ -314,6 +322,26 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
         self.assertEqual( None, err )
 
+    def test_prepare_gfa_entry__from_non_hay_digitization(self):
+        ## ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
+        ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
+                '23252022350006966',
+                'Spit temple : the selected performances of Cecilia Vicuña / edited by Rosa Alcalá',
+                '31236098095956',
+                'Kkkkkkk, Jjjjjjjj',
+                '12345678901234',
+                'Full text needed for fall course reserves: LITR0310T Thank you!',
+                'DIGITAL_REQUEST',
+                '' )
+        self.assertEqual( '23252022350006966', gfa_entry[0] )
+        self.assertEqual( '31236098095956', gfa_entry[1] )
+        self.assertEqual( 'ED', gfa_entry[2] )
+        self.assertEqual( 'QS', gfa_entry[3] )
+        self.assertEqual( 'Nnnnnnnn, Rrrrrrr', gfa_entry[4] )
+        self.assertEqual( '12345678901234', gfa_entry[5] )
+        self.assertEqual( 'Taiwan tian zhu jiao shi liao hui bian / Gu Weiying bian.', gfa_entry[6] )
+        self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
+        self.assertEqual( None, err )
 
     ## end class ParserTest()
 
