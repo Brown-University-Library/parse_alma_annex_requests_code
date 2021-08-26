@@ -6,6 +6,7 @@ All Alma 'pickup-library' entries must resolve to one of these GFA 'delivery-sto
 ALMA_PICKUP_TO_GFA_DELIVERY = {
     'ANNEX': 'AN',
     'ANNEX READING ROOM': 'AN',
+    'DIGITAL_REQUEST': 'ED',        # 2021-Aug-26 -- this is an 'interpreted' alma-pickup-library
     'Elec. Delivery (Annex Articles)': 'ED',
     'Electronic Delivery': 'ED',
     'HAY': 'HA',
@@ -14,7 +15,7 @@ ALMA_PICKUP_TO_GFA_DELIVERY = {
     'Library Coll Annex': 'AN',
     'ORWIG': 'OR',
     'Orwig Music Library': 'OR',
-    'PERSONAL_DELIVERY': 'RO',  # 2021-Aug-23 -- until I hear otherwise
+    'PERSONAL_DELIVERY': 'RO',      # 2021-Aug-23 -- until I hear otherwise
     'ROCK': 'RO',
     'Rockefeller Library': 'RO',
     'SCI': 'SC',
@@ -25,7 +26,7 @@ ALMA_PICKUP_TO_GFA_DELIVERY = {
 
 """
 All Alma 'libraryCode' entries must resolve to one of these GFA 'location' codes:
-[ 'ED', 'QH', 'QS' ]
+[ 'QH', 'QS' ]
 """
 
 ALMA_LIBRARY_CODE_TO_GFA_LOCATION = {
