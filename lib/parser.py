@@ -86,7 +86,7 @@ class Parser():
         try:
             assert type( parsed_pickup_library) == str
             if parsed_pickup_library == 'DIGITAL_REQUEST':
-                gfa_delivery = 'ED'
+                gfa_delivery = 'QS'
             else:
                 source_dct = mapper.ALMA_PICKUP_TO_GFA_DELIVERY
                 gfa_delivery = source_dct[parsed_pickup_library]
