@@ -74,10 +74,10 @@ class Controller(object):
             ( patron_name, err04 ) = prsr.parse_patron_name( item )
             ( patron_barcode, err05 ) = prsr.parse_patron_barcode( item )
             ( patron_note, err06 ) = prsr.parse_patron_note( item )
-            ( parsed_pickup_library, err07 ) = prsr.parse_pickup_library( item )
-            ( parsed_library_code, err08 ) = prsr.parse_library_code( item )
+            ( parsed_alma_pickup_library, err07 ) = prsr.parse_alma_pickup_library( item )
+            ( parsed_alma_library_code, err08 ) = prsr.parse_alma_library_code( item )
             ( gfa_entry, err09 ) = prsr.prepare_gfa_entry(
-                item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_pickup_library, parsed_library_code )
+                item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_alma_pickup_library, parsed_alma_library_code )
             # if err:
             for err in [ err01, err02, err03, err04, err05, err06, err07, err08, err09 ]:
                 if err:
