@@ -31,7 +31,7 @@ All Alma 'libraryCode' entries must resolve to one of these GFA 'location' codes
 ALMA_LIBRARY_CODE_TO_GFA_LOCATION = {
     'ANNEX': 'QS',
     'ANNEX_HAY': 'QH',
-    'Electronic Delivery': 'ED',
+    # 'Electronic Delivery': 'ED',
     'HAY': 'QH',
     'ORWIG': 'QS',
     'ROCK': 'QS',
