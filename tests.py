@@ -218,19 +218,37 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( '12345678901234', patron_barcode )
         self.assertEqual( None, err )
 
-    def test_parse_patron_note_physical(self):
+    def test_parse_patron_note(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( patron_note, err ) = self.prsr.parse_patron_note( item_list[0] )
-        self.assertEqual( 'b-test, new-configuration, physical, 2:59pm', patron_note )
-        self.assertEqual( None, err )
+        expecteds = [
+            'test note A',
+            '',
+            '',                     # weird 'personal-delivery' item
+            'test note B',
+            'test note C',
+            'Full text needed for fall course reserves: LITR0310T Thank you!',  # hay digitization request; INTERPRETED from multiple fields
+            'test note D',
+            '34 (2002)'             # non-hay digitization request; INTERPRETED from multiple fields
+            ]
+        for ( index, item ) in enumerate( item_list):
+            ( note, err ) = self.prsr.parse_patron_note( item )
+            self.assertEqual( None, err )
+            self.assertEqual( expecteds[index], note )
 
-    def test_parse_patron_note_digital(self):
-        ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
-        ( item_list, err ) = self.prsr.make_item_list( all_text )
-        ( patron_note, err ) = self.prsr.parse_patron_note( item_list[5] )
-        self.assertEqual( 'Full text needed for fall course reserves: LITR0310T Thank you!', patron_note )
-        self.assertEqual( None, err )
+    # def test_parse_patron_note_physical(self):
+    #     ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
+    #     ( item_list, err ) = self.prsr.make_item_list( all_text )
+    #     ( patron_note, err ) = self.prsr.parse_patron_note( item_list[0] )
+    #     self.assertEqual( 'b-test, new-configuration, physical, 2:59pm', patron_note )
+    #     self.assertEqual( None, err )
+
+    # def test_parse_patron_note_digital(self):
+    #     ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
+    #     ( item_list, err ) = self.prsr.make_item_list( all_text )
+    #     ( patron_note, err ) = self.prsr.parse_patron_note( item_list[5] )
+    #     self.assertEqual( 'Full text needed for fall course reserves: LITR0310T Thank you!', patron_note )
+    #     self.assertEqual( None, err )
 
     def test_parse_alma_pickup_library(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )

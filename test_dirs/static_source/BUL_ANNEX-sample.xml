@@ -34,7 +34,7 @@
       <xb:stateProvince>RI</xb:stateProvince>
     </xb:shipAddress>
     <xb:libraryCode>ROCK</xb:libraryCode>
-    <xb:requestNote>b-test, new-configuration, physical, 2:59pm</xb:requestNote>
+    <xb:requestNote>test note A</xb:requestNote>
     <xb:bibliographicInformation>
       <xb:author>Project Innovation (Organization)</xb:author>
       <xb:issn>0013-1172</xb:issn>
@@ -157,7 +157,7 @@
       <xb:stateProvince>RI</xb:stateProvince>
     </xb:shipAddress>
     <xb:libraryCode>ROCK</xb:libraryCode>
-    <xb:requestNote>b-test, new-configuration, physical, 2021-Jul-07,3:37pm</xb:requestNote>
+    <xb:requestNote>test note B</xb:requestNote>
     <xb:bibliographicInformation>
       <xb:author>David, Yadin.</xb:author>
       <xb:isbn>9780849318139</xb:isbn>
@@ -199,7 +199,7 @@
       <xb:stateProvince>RI</xb:stateProvince>
     </xb:shipAddress>
     <xb:libraryCode>ROCK</xb:libraryCode>
-    <xb:requestNote>b-test, new-configuration, physical, 2021-Jul-07,3:39pm</xb:requestNote>
+    <xb:requestNote>test note C</xb:requestNote>
     <xb:bibliographicInformation>
       <xb:author>Irwin, Lee,</xb:author>
       <xb:isbn>9780803282612</xb:isbn>
@@ -276,7 +276,7 @@
       <xb:stateProvince>RI</xb:stateProvince>
     </xb:shipAddress>
     <xb:libraryCode>ROCK</xb:libraryCode>
-    <xb:requestNote>b-test, new-configuration, physical, 2:59pm</xb:requestNote>
+    <xb:requestNote>test note D</xb:requestNote>
     <xb:bibliographicInformation>
       <xb:author>Project Innovation (Organization)</xb:author>
       <xb:issn>0013-1172</xb:issn>
