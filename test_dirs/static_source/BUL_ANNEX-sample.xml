@@ -285,4 +285,39 @@
     </xb:bibliographicInformation>
   </xb:rsExport>
 
+  <xb:rsExport>
+    <xb:requestType>PHYSICAL_TO_DIGITIZATION</xb:requestType>
+    <xb:requestId>4939344560006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>Brown University</xb:library>
+      <xb:desk>Digitization Department For Institution</xb:desk>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:call_number_type>0</xb:call_number_type>
+      <xb:permanent_call_number>R729.5.G4;F36x</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>RKSTORAGE</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>31236090510895</xb:barcode>
+    <xb:mmsId>991008273319706966</xb:mmsId>
+    <xb:itemId>23262289010006966</xb:itemId>
+    <xb:title>Family medicine.</xb:title>
+    <xb:requestedInfo>
+      <xb:description>34 (2002)</xb:description>
+      <xb:partToDigitize xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+    </xb:requestedInfo>
+    <xb:patronInfo>
+      <xb:patronName>Aaaaaaa, Jjjjjjj</xb:patronName>
+      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
+      <xb:patronEmail>jjjjjjj_aaaaaaa@brown.edu</xb:patronEmail>
+    </xb:patronInfo>
+    <xb:shipAddress />
+    <xb:digitizationDepartmentCode>DIGI_DEPT_INST</xb:digitizationDepartmentCode>
+    <xb:bibliographicInformation>
+      <xb:author>Society of Teachers of Family Medicine.</xb:author>
+      <xb:issn>0742-3225</xb:issn>
+      <xb:placeOfPublication>Kansas City, Mo. :</xb:placeOfPublication>
+      <xb:dateOfPublication>1981</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
+
 </xb:rsExportList>

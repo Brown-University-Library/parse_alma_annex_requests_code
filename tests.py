@@ -168,7 +168,7 @@ class ParserTest( unittest.TestCase ):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( items, err ) = self.prsr.make_item_list( all_text )
         self.assertEqual( bs4.element.ResultSet, type(items) )
-        self.assertEqual( 7, len(items) )
+        self.assertEqual( 8, len(items) )
         self.assertEqual( bs4.element.Tag, type(items[0]) )
 
     def test_parse_item_id(self):
@@ -188,7 +188,8 @@ class ParserTest( unittest.TestCase ):
             'Clinical engineering / edited by Yadin David [and others]',
             'Native American spirituality : a critical reader / edited by Lee Irwin.',
             'Spit temple : the selected performances of Cecilia Vicuña / edited by Rosa Alcalá',
-            '' ]
+            '',
+            'Family medicine.' ]
         for ( index, item ) in enumerate( item_list):
             ( title, err ) = self.prsr.parse_item_title( item )
             self.assertEqual( None, err )
@@ -197,7 +198,7 @@ class ParserTest( unittest.TestCase ):
     def test_parse_item_barcode(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
-        expecteds = [ '31236011508853', '31236070043131', '31236093072141', '31236018330830', '31236015311965', '31236098095956', '31236011508853' ]
+        expecteds = [ '31236011508853', '31236070043131', '31236093072141', '31236018330830', '31236015311965', '31236098095956', '31236011508853', '31236090510895' ]
         for ( index, item ) in enumerate( item_list):
             ( item_barcode, err ) = self.prsr.parse_item_barcode( item )
             self.assertEqual( None, err )
@@ -241,7 +242,9 @@ class ParserTest( unittest.TestCase ):
             'Rockefeller Library',
             'Rockefeller Library',
             'DIGITAL_REQUEST',      # hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
-            'Rockefeller Library' ]
+            'Rockefeller Library',
+            'DIGITAL_REQUEST'       # non-hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
+            ]
         for ( index, item ) in enumerate( item_list):
             ( pickup_library, err ) = self.prsr.parse_alma_pickup_library( item )
             self.assertEqual( None, err )
@@ -257,7 +260,9 @@ class ParserTest( unittest.TestCase ):
             'ROCK',
             'ROCK',
             '',                     # hay digitization request
-            'ROCK' ]
+            'ROCK',
+            ''                      # non-hay digitization request
+            ]
         for ( index, item ) in enumerate( item_list):
             ( alma_library_code, err ) = self.prsr.parse_alma_library_code( item )
             self.assertEqual( None, err )
