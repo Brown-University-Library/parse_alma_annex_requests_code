@@ -180,6 +180,7 @@ class Parser():
 
     def parse_patron_note( self, item ):
         ( patron_note, err ) = ( None, None )
+        ## get possible note parts --------------
         ( request_note, err ) = self.parse_element( item, 'requestNote' )
         if err:
             return ( patron_note, err )
@@ -189,6 +190,7 @@ class Parser():
         ( description, err ) = self.parse_element( item, 'description' )
         if err:
             return ( patron_note, err )
+        ## assemble note ------------------------
         patron_note = ''
         for item in [request_note, part_to_digitize, description]:
             if item:
@@ -199,6 +201,8 @@ class Parser():
                         pass
                     else:
                         patron_note = patron_note + '; ' + item
+        if patron_note == '':
+            patron_note = 'no_note'
         log.debug( f', ``{patron_note}``' )
         return ( patron_note, err )
 

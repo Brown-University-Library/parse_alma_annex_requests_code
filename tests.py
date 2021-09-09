@@ -219,12 +219,14 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( None, err )
 
     def test_parse_patron_note(self):
+        """ Note is assembled from three fields.
+            And due to GFA bug, if note is empty, 'no_note' is returned. """
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         expecteds = [
             'test note A',
-            '',
-            '',                     # weird 'personal-delivery' item
+            'no_note',
+            'no_note',              # weird 'personal-delivery' item
             'test note B',
             'test note C',
             'Full text needed for fall course reserves: LITR0310T Thank you!',  # hay digitization request; INTERPRETED from multiple fields
