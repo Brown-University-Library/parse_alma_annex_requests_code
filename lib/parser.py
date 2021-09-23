@@ -206,16 +206,14 @@ class Parser():
         log.debug( f', ``{patron_note}``' )
         return ( patron_note, err )
 
-    # def parse_patron_note( self, item ):
-    #     ( request_note, err ) = self.parse_element( item, 'requestNote' )
-    #     log.debug( f', ``{patron_note}``' )
-    #     return ( patron_note, err )
-
     def parse_alma_pickup_library( self, item ):
+        """ The `DIGITAL_REQUEST` string is mapped to give the GFA software an 'ED' GFA 'delivery-stop' code. """
         interpreted_pickup_library = 'init'
         ( request_type, err ) = self.parse_element( item, 'requestType' )
         log.debug( f'request_type, ``{request_type}``' )
         if request_type == 'PHYSICAL_TO_DIGITIZATION':
+            interpreted_pickup_library = 'DIGITAL_REQUEST'
+        elif request_type == 'STAFF_PHYSICAL_DIGITIZATION':  # string first seen 2021-September-23
             interpreted_pickup_library = 'DIGITAL_REQUEST'
         else:  # "PATRON_PHYSICAL"
             ( pickup_library, err ) = self.parse_element( item, 'library' )
@@ -223,6 +221,19 @@ class Parser():
             interpreted_pickup_library = pickup_library
         log.debug( f'interpreted_pickup_library, ``{interpreted_pickup_library}``' )
         return ( interpreted_pickup_library, err )
+
+    # def parse_alma_pickup_library( self, item ):
+    #     interpreted_pickup_library = 'init'
+    #     ( request_type, err ) = self.parse_element( item, 'requestType' )
+    #     log.debug( f'request_type, ``{request_type}``' )
+    #     if request_type == 'PHYSICAL_TO_DIGITIZATION':
+    #         interpreted_pickup_library = 'DIGITAL_REQUEST'
+    #     else:  # "PATRON_PHYSICAL"
+    #         ( pickup_library, err ) = self.parse_element( item, 'library' )
+    #         log.debug( f'pickup_library, ``{pickup_library}``' )
+    #         interpreted_pickup_library = pickup_library
+    #     log.debug( f'interpreted_pickup_library, ``{interpreted_pickup_library}``' )
+    #     return ( interpreted_pickup_library, err )
 
     def parse_alma_library_code( self, item ):
         ( library_code, err ) = self.parse_element( item, 'libraryCode' )

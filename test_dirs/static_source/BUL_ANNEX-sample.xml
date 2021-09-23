@@ -320,4 +320,30 @@
     </xb:bibliographicInformation>
   </xb:rsExport>
 
+  <xb:rsExport>
+    <xb:requestType>STAFF_PHYSICAL_DIGITIZATION</xb:requestType>
+    <xb:requestId>5281547870006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>Brown University</xb:library>
+      <xb:desk>Digitization Department For Institution</xb:desk>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:call_number_type>0</xb:call_number_type>
+      <xb:permanent_call_number>GV1785.D8 A3 1927</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>HAYSTOR</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>31236075035470</xb:barcode>
+    <xb:mmsId>991032867629706966</xb:mmsId>
+    <xb:itemId>23262580290006966</xb:itemId>
+    <xb:title>My life / Isadora Duncan.</xb:title>
+    <xb:shipAddress />
+    <xb:digitizationDepartmentCode>DIGI_DEPT_INST</xb:digitizationDepartmentCode>
+    <xb:requestNote>please scan entire book for course reserves TAPS 1330 S01: Dance History</xb:requestNote>
+    <xb:bibliographicInformation>
+      <xb:author>Duncan, Isadora,</xb:author>
+      <xb:placeOfPublication>Garden City, NY :</xb:placeOfPublication>
+      <xb:dateOfPublication>c1927.</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
+
 </xb:rsExportList>
