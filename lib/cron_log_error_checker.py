@@ -45,7 +45,7 @@ def _send_mail( message ):
     log.debug( f'message, ``{message}``' )
     try:
         s = smtplib.SMTP( EMAIL_HOST, EMAIL_PORT )
-        body = message
+        body = f'last few error-entries...\n\n{message}\n\nLog path: `{LOG_FILEPATH}`'
         eml = MIMEText( f'{body}' )
         eml['Subject'] = 'error found in parse-alma-exports logfile'
         eml['From'] = EMAIL_FROM
