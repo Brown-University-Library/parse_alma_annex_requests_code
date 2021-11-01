@@ -7,13 +7,12 @@ Called by cron-job, like (pseudocode)...
 - $ python3 ./lib/cron_log_error_checker.py
 """
 
-import json, logging, os, pprint, smtplib
+import datetime, json, logging, os, pprint, smtplib
 from email.mime.text import MIMEText
 
 
 logging.basicConfig(
-    # level='DEBUG',
-    level='WARNING',
+    level = os.environ['ANX_ALMA__LOGFILE_ERROR_EMAIL_LOGLEVEL'],  # set to 'WARNING' in production to only generate output on an error that will trigger and email, by crontab, to crontab owner significant failure.
     format='[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s',
     datefmt='%d/%b/%Y %H:%M:%S',
     )
@@ -21,13 +20,15 @@ log = logging.getLogger(__name__)
 
 
 EMAIL_FROM = os.environ['ANX_ALMA__LOGFILE_ERROR_EMAIL_FROM']
-EMAIL_HOST = os.environ['ANX_ALMA__LOGFILE_ERROR_EMAIL_HOST']  # needed?
-EMAIL_PORT = os.environ['ANX_ALMA__LOGFILE_ERROR_EMAIL_PORT']  # needed?
+EMAIL_HOST = os.environ['ANX_ALMA__LOGFILE_ERROR_EMAIL_HOST']
+EMAIL_PORT = os.environ['ANX_ALMA__LOGFILE_ERROR_EMAIL_PORT']
 EMAIL_RECIPIENTS = json.loads( os.environ['ANX_ALMA__LOGFILE_ERROR_EMAIL_RECIPIENTS_JSON'] )
 LOG_FILEPATH = os.environ['ANX_ALMA__LOGFILE_PATH']  # different from `ANX_ALMA__LOG_PATH` for testing convenience
 
 
 def _search_for_errors():
+    """ Checks active log-file for error entries.
+        Called by run_check() """
     ( error_lines, err ) = ( [], '' )
     try:
         with open( LOG_FILEPATH, 'r' ) as f:
@@ -36,16 +37,20 @@ def _search_for_errors():
                     error_lines.append( line )
     except Exception as e:
         err = repr(e)
-    log.debug( f'error_lines, ``{pprint.pformat(error_lines)}``' )
+    log.debug( f'initial error_lines, ``{pprint.pformat(error_lines)}``' )
+    if error_lines:
+        error_lines[-4:]
     log.debug( f'err, ``{err}``' )
     return ( error_lines, err )
 
 
 def _send_mail( message ):
+    """ Sends mail; generates exception which cron-job should email to crontab owner on sendmail failure.
+        Called by run_check() """
     log.debug( f'message, ``{message}``' )
     try:
         s = smtplib.SMTP( EMAIL_HOST, EMAIL_PORT )
-        body = f'last few error-entries...\n\n{message}\n\nLog path: `{LOG_FILEPATH}`'
+        body = f'datetime: `{str(datetime.datetime.now())}`\n\nlast few error-entries...\n\n{message}\n\nLog path: `{LOG_FILEPATH}`\n\n[END]'
         eml = MIMEText( f'{body}' )
         eml['Subject'] = 'error found in parse-alma-exports logfile'
         eml['From'] = EMAIL_FROM
