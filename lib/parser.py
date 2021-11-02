@@ -207,14 +207,22 @@ class Parser():
         return ( patron_note, err )
 
     def parse_alma_pickup_library( self, item ):
-        """ The `DIGITAL_REQUEST` string is mapped to give the GFA software an 'ED' GFA 'delivery-stop' code. """
+        """ The `DIGITAL_REQUEST` string is mapped to give the GFA software an 'ED' or 'EH' GFA 'delivery-stop' code.
+            Called by controller.process_requests() """
         interpreted_pickup_library = 'init'
         ( request_type, err ) = self.parse_element( item, 'requestType' )
+        ( physical_location_code, err ) = self.parse_element( item, 'permanent_physical_location_code' )
         log.debug( f'request_type, ``{request_type}``' )
         if request_type == 'PHYSICAL_TO_DIGITIZATION':
-            interpreted_pickup_library = 'DIGITAL_REQUEST'
+            if 'hay' in physical_location_code.lower():
+                interpreted_pickup_library = 'DIGITAL_REQUEST_HAY'
+            else:
+                interpreted_pickup_library = 'DIGITAL_REQUEST_NONHAY'
         elif request_type == 'STAFF_PHYSICAL_DIGITIZATION':  # string first seen 2021-September-23
-            interpreted_pickup_library = 'DIGITAL_REQUEST'
+            if 'hay' in physical_location_code.lower():
+                interpreted_pickup_library = 'DIGITAL_REQUEST_HAY'
+            else:
+                interpreted_pickup_library = 'DIGITAL_REQUEST_NONHAY'
         else:  # "PATRON_PHYSICAL"
             ( pickup_library, err ) = self.parse_element( item, 'library' )
             log.debug( f'pickup_library, ``{pickup_library}``' )
@@ -223,10 +231,13 @@ class Parser():
         return ( interpreted_pickup_library, err )
 
     # def parse_alma_pickup_library( self, item ):
+    #     """ The `DIGITAL_REQUEST` string is mapped to give the GFA software an 'ED' GFA 'delivery-stop' code. """
     #     interpreted_pickup_library = 'init'
     #     ( request_type, err ) = self.parse_element( item, 'requestType' )
     #     log.debug( f'request_type, ``{request_type}``' )
     #     if request_type == 'PHYSICAL_TO_DIGITIZATION':
+    #         interpreted_pickup_library = 'DIGITAL_REQUEST'
+    #     elif request_type == 'STAFF_PHYSICAL_DIGITIZATION':  # string first seen 2021-September-23
     #         interpreted_pickup_library = 'DIGITAL_REQUEST'
     #     else:  # "PATRON_PHYSICAL"
     #         ( pickup_library, err ) = self.parse_element( item, 'library' )
