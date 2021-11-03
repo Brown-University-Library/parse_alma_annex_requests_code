@@ -1,6 +1,6 @@
 """"
 All Alma 'pickup-library' entries must resolve to one of these GFA 'delivery-stop' codes:
-[ 'AN', 'ED', 'HA', 'OR', 'RO', 'SC' ]
+[ 'AN', 'ED', 'EH', 'HA', 'OR', 'RO', 'SC' ]
 """
 
 ALMA_PICKUP_TO_GFA_DELIVERY = {
@@ -22,25 +22,6 @@ ALMA_PICKUP_TO_GFA_DELIVERY = {
     'SCI': 'SC',
     'Sciences Library': 'SC'
     }
-
-# ALMA_PICKUP_TO_GFA_DELIVERY = {
-#     'ANNEX': 'AN',
-#     'ANNEX READING ROOM': 'AN',
-#     'DIGITAL_REQUEST': 'ED',        # 2021-Aug-26 -- this is an 'interpreted' alma-pickup-library
-#     'Elec. Delivery (Annex Articles)': 'ED',
-#     'Electronic Delivery': 'ED',
-#     'HAY': 'HA',
-#     'Hay at Rock Reading Room': 'HA',
-#     'John Hay Library': 'HA',
-#     'Library Coll Annex': 'AN',
-#     'ORWIG': 'OR',
-#     'Orwig Music Library': 'OR',
-#     'PERSONAL_DELIVERY': 'RO',      # 2021-Aug-23 -- until I hear otherwise
-#     'ROCK': 'RO',
-#     'Rockefeller Library': 'RO',
-#     'SCI': 'SC',
-#     'Sciences Library': 'SC'
-#     }
 
 
 """
