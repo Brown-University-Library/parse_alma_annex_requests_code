@@ -5,7 +5,7 @@ Usage:
     - $ python3 ./tests.py
 - to run one test:
     - cd to `parse_alma_annex_requests_code` directory
-    - example: $ python3 ./tests.py ParserTest.test_prepare_gfa_entry__from_non_hay_digitization
+    - example: $ python3 ./tests.py ParserTest.test_prepare_gfa_entry__from_hay_digitization
 """
 
 import datetime, logging, os, sys, unittest
@@ -358,7 +358,7 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
         self.assertEqual( None, err )
 
-    def test_prepare_gfa_entry__from_non_hay_digitization(self):
+    def test_prepare_gfa_entry__from_hay_digitization(self):
         ## submission: ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_alma_pickup_library, parsed_alma_library_code )
         ## returned: [ 'item_id', item_barcode, gfa-delivery-code, gfa-location-code, patron_name, patron_barcode, title, date, note ]
         ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
@@ -368,16 +368,39 @@ class ParserTest( unittest.TestCase ):
                 'Kkkkkkk, Jjjjjjjj',
                 '12345678901234',
                 'Full text needed for fall course reserves: LITR0310T Thank you!',
-                'DIGITAL_REQUEST',
+                'DIGITAL_REQUEST_HAY',
                 '' )
-        log.debug( 'hereZZ' )
+        log.debug( 'assertions begin' )
         self.assertEqual( '23252022350006966', gfa_entry[0] )
         self.assertEqual( '31236098095956', gfa_entry[1] )
-        self.assertEqual( 'ED', gfa_entry[2] )
-        self.assertEqual( 'QS', gfa_entry[3] )  # 2021-August-26: yes, normally 'QS' refers to Rock items, but the current GFA ED configuration only works when the
+        self.assertEqual( 'EH', gfa_entry[2] )
+        self.assertEqual( 'QH', gfa_entry[3] )
         self.assertEqual( 'Kkkkkkk, Jjjjjjjj', gfa_entry[4] )
         self.assertEqual( '12345678901234', gfa_entry[5] )
         self.assertEqual( 'Spit temple : the selected performances of Cecilia Vicuña / edited by Rosa Alcalá', gfa_entry[6] )
+        self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
+        self.assertEqual( None, err )
+
+    def test_prepare_gfa_entry__from_NONHAY_digitization(self):
+        ## submission: ( item_id, item_title, item_barcode, patron_name, patron_barcode, patron_note, parsed_alma_pickup_library, parsed_alma_library_code )
+        ## returned: [ 'item_id', item_barcode, gfa-delivery-code, gfa-location-code, patron_name, patron_barcode, title, date, note ]
+        ( gfa_entry, err ) = self.prsr.prepare_gfa_entry(
+                '23262289010006966',
+                'Family medicine.',
+                '31236090510895',
+                'Aaaaaaa, Jjjjjjj',
+                '12345678901234',
+                '34 (2002)',
+                'DIGITAL_REQUEST_NONHAY',
+                '' )
+        log.debug( 'assertions begin' )
+        self.assertEqual( '23262289010006966', gfa_entry[0] )
+        self.assertEqual( '31236090510895', gfa_entry[1] )
+        self.assertEqual( 'ED', gfa_entry[2] )
+        self.assertEqual( 'QS', gfa_entry[3] )
+        self.assertEqual( 'Aaaaaaa, Jjjjjjj', gfa_entry[4] )
+        self.assertEqual( '12345678901234', gfa_entry[5] )
+        self.assertEqual( 'Family medicine.', gfa_entry[6] )
         self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
         self.assertEqual( None, err )
 

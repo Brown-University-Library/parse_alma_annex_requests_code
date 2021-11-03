@@ -74,7 +74,6 @@ class Parser():
                     gfa_entry = [
                         item_id, item_barcode, gfa_delivery, gfa_location, patron_name, patron_barcode, item_title, self.prepare_gfa_datetime(), patron_note
                     ]
-            log.debug( f'gfa_entry, ``{gfa_entry}``' )
         except Exception as e:
             err = repr( e )
             log.exception( f'problem preparing gfa entry, ``{err}``' )
@@ -97,6 +96,7 @@ class Parser():
     #     return ( gfa_delivery, err )
 
     def transform_parsed_alma_pickup_library( self, parsed_alma_pickup_library ):
+        log.debug( f'parsed_alma_pickup_library, ``{parsed_alma_pickup_library}``' )
         ( gfa_delivery, err ) = ( '', None )
         try:
             assert type( parsed_alma_pickup_library) == str
@@ -108,22 +108,6 @@ class Parser():
         log.debug( f'gfa_delivery, ``{gfa_delivery}``' )
         return ( gfa_delivery, err )
 
-    # def transform_parsed_alma_library_code( self, parsed_alma_library_code, gfa_delivery ):
-    #     ( gfa_location, err ) = ( '', None )
-    #     try:
-    #         assert type( parsed_alma_library_code) == str
-    #         assert type( gfa_delivery ) == str
-    #         if gfa_delivery == 'ED':
-    #             gfa_location = 'ED'
-    #         else:
-    #             source_dct = mapper.ALMA_LIBRARY_CODE_TO_GFA_LOCATION
-    #             gfa_location = source_dct[parsed_alma_library_code]
-    #     except Exception as e:
-    #         err = repr( e )
-    #         log.exception( f'problem preparing gfa_location, ``{err}``' )
-    #     log.debug( f'gfa_location, ``{gfa_location}``' )
-    #     return ( gfa_location, err )
-
     def transform_parsed_alma_library_code( self, parsed_alma_library_code, gfa_delivery ):
         ( gfa_location, err ) = ( '', None )
         log.debug( f'parsed_alma_library_code, ``{parsed_alma_library_code}``; gfa_delivery, ``{gfa_delivery}``' )
@@ -131,7 +115,9 @@ class Parser():
             assert type( parsed_alma_library_code) == str
             assert type( gfa_delivery ) == str
             if gfa_delivery == 'ED':
-                gfa_location = 'QS'     # 2021-August-26: currently this applies to non-Hay _and_ Hay items
+                gfa_location = 'QS'
+            elif gfa_delivery == 'EH':
+                gfa_location = 'QH'
             elif gfa_delivery == 'RO':  # 2021-August-26: implemented to handle ALMA pickup-location `PERSONAL_DELIVERY`
                 gfa_location = 'QS'
             else:
@@ -142,6 +128,25 @@ class Parser():
             log.exception( f'problem preparing gfa_location, ``{err}``' )
         log.debug( f'gfa_location, ``{gfa_location}``' )
         return ( gfa_location, err )
+
+    # def transform_parsed_alma_library_code( self, parsed_alma_library_code, gfa_delivery ):
+    #     ( gfa_location, err ) = ( '', None )
+    #     log.debug( f'parsed_alma_library_code, ``{parsed_alma_library_code}``; gfa_delivery, ``{gfa_delivery}``' )
+    #     try:
+    #         assert type( parsed_alma_library_code) == str
+    #         assert type( gfa_delivery ) == str
+    #         if gfa_delivery == 'ED':
+    #             gfa_location = 'QS'     # 2021-August-26: currently this applies to non-Hay _and_ Hay items
+    #         elif gfa_delivery == 'RO':  # 2021-August-26: implemented to handle ALMA pickup-location `PERSONAL_DELIVERY`
+    #             gfa_location = 'QS'
+    #         else:
+    #             source_dct = mapper.ALMA_LIBRARY_CODE_TO_GFA_LOCATION
+    #             gfa_location = source_dct[parsed_alma_library_code]
+    #     except Exception as e:
+    #         err = repr( e )
+    #         log.exception( f'problem preparing gfa_location, ``{err}``' )
+    #     log.debug( f'gfa_location, ``{gfa_location}``' )
+    #     return ( gfa_location, err )
 
     def prepare_gfa_datetime( self, datetime_obj=None ):
         """ In practice, no datetime-object will be passed in, but the 'datetime_obj=None' allows for easy testing. """
