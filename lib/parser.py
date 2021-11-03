@@ -80,21 +80,6 @@ class Parser():
         log.debug( f'gfa_entry, ``{gfa_entry}``' )
         return ( gfa_entry, err )
 
-    # def transform_parsed_alma_pickup_library( self, parsed_alma_pickup_library ):
-    #     ( gfa_delivery, err ) = ( '', None )
-    #     try:
-    #         assert type( parsed_alma_pickup_library) == str
-    #         if parsed_alma_pickup_library == 'DIGITAL_REQUEST':
-    #             gfa_delivery = 'QS'  # 2021-August-26 -- must be `QS` even for Hay scan-requests given current GFA configuration
-    #         else:
-    #             source_dct = mapper.ALMA_PICKUP_TO_GFA_DELIVERY
-    #             gfa_delivery = source_dct[parsed_alma_pickup_library]
-    #     except Exception as e:
-    #         err = repr( e )
-    #         log.exception( f'problem preparing gfa_delivery, ``{err}``' )
-    #     log.debug( f'gfa_delivery, ``{gfa_delivery}``' )
-    #     return ( gfa_delivery, err )
-
     def transform_parsed_alma_pickup_library( self, parsed_alma_pickup_library ):
         log.debug( f'parsed_alma_pickup_library, ``{parsed_alma_pickup_library}``' )
         ( gfa_delivery, err ) = ( '', None )
@@ -128,25 +113,6 @@ class Parser():
             log.exception( f'problem preparing gfa_location, ``{err}``' )
         log.debug( f'gfa_location, ``{gfa_location}``' )
         return ( gfa_location, err )
-
-    # def transform_parsed_alma_library_code( self, parsed_alma_library_code, gfa_delivery ):
-    #     ( gfa_location, err ) = ( '', None )
-    #     log.debug( f'parsed_alma_library_code, ``{parsed_alma_library_code}``; gfa_delivery, ``{gfa_delivery}``' )
-    #     try:
-    #         assert type( parsed_alma_library_code) == str
-    #         assert type( gfa_delivery ) == str
-    #         if gfa_delivery == 'ED':
-    #             gfa_location = 'QS'     # 2021-August-26: currently this applies to non-Hay _and_ Hay items
-    #         elif gfa_delivery == 'RO':  # 2021-August-26: implemented to handle ALMA pickup-location `PERSONAL_DELIVERY`
-    #             gfa_location = 'QS'
-    #         else:
-    #             source_dct = mapper.ALMA_LIBRARY_CODE_TO_GFA_LOCATION
-    #             gfa_location = source_dct[parsed_alma_library_code]
-    #     except Exception as e:
-    #         err = repr( e )
-    #         log.exception( f'problem preparing gfa_location, ``{err}``' )
-    #     log.debug( f'gfa_location, ``{gfa_location}``' )
-    #     return ( gfa_location, err )
 
     def prepare_gfa_datetime( self, datetime_obj=None ):
         """ In practice, no datetime-object will be passed in, but the 'datetime_obj=None' allows for easy testing. """
@@ -235,22 +201,6 @@ class Parser():
         log.debug( f'interpreted_pickup_library, ``{interpreted_pickup_library}``' )
         return ( interpreted_pickup_library, err )
 
-    # def parse_alma_pickup_library( self, item ):
-    #     """ The `DIGITAL_REQUEST` string is mapped to give the GFA software an 'ED' GFA 'delivery-stop' code. """
-    #     interpreted_pickup_library = 'init'
-    #     ( request_type, err ) = self.parse_element( item, 'requestType' )
-    #     log.debug( f'request_type, ``{request_type}``' )
-    #     if request_type == 'PHYSICAL_TO_DIGITIZATION':
-    #         interpreted_pickup_library = 'DIGITAL_REQUEST'
-    #     elif request_type == 'STAFF_PHYSICAL_DIGITIZATION':  # string first seen 2021-September-23
-    #         interpreted_pickup_library = 'DIGITAL_REQUEST'
-    #     else:  # "PATRON_PHYSICAL"
-    #         ( pickup_library, err ) = self.parse_element( item, 'library' )
-    #         log.debug( f'pickup_library, ``{pickup_library}``' )
-    #         interpreted_pickup_library = pickup_library
-    #     log.debug( f'interpreted_pickup_library, ``{interpreted_pickup_library}``' )
-    #     return ( interpreted_pickup_library, err )
-
     def parse_alma_library_code( self, item ):
         ( library_code, err ) = self.parse_element( item, 'libraryCode' )
         log.debug( f'library_code, ``{library_code}``' )
@@ -277,5 +227,3 @@ class Parser():
         return ( element_text, err )
 
     ## end class Parser()
-
-
