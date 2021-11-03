@@ -1,3 +1,13 @@
+"""
+Usage:
+- to run all tests:
+    - cd to `parse_alma_annex_requests_code` directory
+    - $ python3 ./tests.py
+- to run one test:
+    - cd to `parse_alma_annex_requests_code` directory
+    - example: $ python3 ./tests.py ParserTest.test_prepare_gfa_entry__from_non_hay_digitization
+"""
+
 import datetime, logging, os, sys, unittest
 import bs4
 
@@ -243,38 +253,43 @@ class ParserTest( unittest.TestCase ):
             self.assertEqual( None, err )
             self.assertEqual( expecteds[index], note )
 
-    # def test_parse_patron_note_physical(self):
-    #     ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
-    #     ( item_list, err ) = self.prsr.make_item_list( all_text )
-    #     ( patron_note, err ) = self.prsr.parse_patron_note( item_list[0] )
-    #     self.assertEqual( 'b-test, new-configuration, physical, 2:59pm', patron_note )
-    #     self.assertEqual( None, err )
-
-    # def test_parse_patron_note_digital(self):
-    #     ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
-    #     ( item_list, err ) = self.prsr.make_item_list( all_text )
-    #     ( patron_note, err ) = self.prsr.parse_patron_note( item_list[5] )
-    #     self.assertEqual( 'Full text needed for fall course reserves: LITR0310T Thank you!', patron_note )
-    #     self.assertEqual( None, err )
-
     def test_parse_alma_pickup_library(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         expecteds = [
             'Rockefeller Library',
             'John Hay Library',
-            'PERSONAL_DELIVERY',    # weird 'personal-delivery' item
+            'PERSONAL_DELIVERY',        # weird 'personal-delivery' item
             'Rockefeller Library',
             'Rockefeller Library',
-            'DIGITAL_REQUEST',      # hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
+            'DIGITAL_REQUEST_HAY',      # hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
             'Rockefeller Library',
-            'DIGITAL_REQUEST',      # non-hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
-            'DIGITAL_REQUEST'       # staff digitization request with no patron-info; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
+            'DIGITAL_REQUEST_NONHAY',   # non-hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
+            'DIGITAL_REQUEST_HAY'       # staff digitization request with no patron-info; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
             ]
         for ( index, item ) in enumerate( item_list):
             ( pickup_library, err ) = self.prsr.parse_alma_pickup_library( item )
             self.assertEqual( None, err )
             self.assertEqual( expecteds[index], pickup_library )
+
+    # def test_parse_alma_pickup_library(self):
+    #     ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
+    #     ( item_list, err ) = self.prsr.make_item_list( all_text )
+    #     expecteds = [
+    #         'Rockefeller Library',
+    #         'John Hay Library',
+    #         'PERSONAL_DELIVERY',    # weird 'personal-delivery' item
+    #         'Rockefeller Library',
+    #         'Rockefeller Library',
+    #         'DIGITAL_REQUEST',      # hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
+    #         'Rockefeller Library',
+    #         'DIGITAL_REQUEST',      # non-hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
+    #         'DIGITAL_REQUEST'       # staff digitization request with no patron-info; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
+    #         ]
+    #     for ( index, item ) in enumerate( item_list):
+    #         ( pickup_library, err ) = self.prsr.parse_alma_pickup_library( item )
+    #         self.assertEqual( None, err )
+    #         self.assertEqual( expecteds[index], pickup_library )
 
     def test_parse_alma_library_code(self):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
