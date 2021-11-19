@@ -346,4 +346,46 @@
     </xb:bibliographicInformation>
   </xb:rsExport>
 
+  <xb:rsExport>
+    <xb:requestType>PATRON_PHYSICAL</xb:requestType>
+    <xb:requestId>5762867420006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>Rockefeller Library</xb:library>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:call_number_type>0</xb:call_number_type>
+      <xb:permanent_call_number>DA520 .P2</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>RKSTORAGE</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>31236080544706</xb:barcode>
+    <xb:mmsId>991021589269706966</xb:mmsId>
+    <xb:itemId>23316222600006966</xb:itemId>
+    <xb:title>War in the Eastern seas, 1793-1815.</xb:title>
+    <xb:patronInfo>
+      <xb:patronName>CARREL B 45 NON-BROWN, ROCK</xb:patronName>
+      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
+      <xb:patronEmail>rock@brown.edu</xb:patronEmail>
+    </xb:patronInfo>
+    <xb:shipAddress>
+      <xb:city>PROVIDENCE</xb:city>
+      <xb:country>USA</xb:country>
+      <xb:line1>Acquisitions Department</xb:line1>
+      <xb:line2>Box A</xb:line2>
+      <xb:line3>Rockefeller Library</xb:line3>
+      <xb:line4>10 Prospect St.</xb:line4>
+      <xb:line5 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:postalCode>02912</xb:postalCode>
+      <xb:stateProvince>RI</xb:stateProvince>
+    </xb:shipAddress>
+    <xb:libraryCode>ROCK</xb:libraryCode>
+    <xb:requestNote>HOLD FOR: Bbbbb Ppppppp (Alumni)
+
+ email@domain.com</xb:requestNote>
+    <xb:bibliographicInformation>
+      <xb:author>Parkinson, C. Northcote</xb:author>
+      <xb:placeOfPublication>London,</xb:placeOfPublication>
+      <xb:dateOfPublication>[1954]</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
+
 </xb:rsExportList>
