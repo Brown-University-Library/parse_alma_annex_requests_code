@@ -250,13 +250,14 @@ class ParserTest( unittest.TestCase ):
         expecteds = [
             'test note A',
             'no_note',
-            'no_note',              # weird 'personal-delivery' item
+            'no_note',                                                          # weird 'personal-delivery' item
             'test note B',
             'test note C',
             'Full text needed for fall course reserves: LITR0310T Thank you!',  # hay digitization request; INTERPRETED from multiple fields
             'test note D',
-            '34 (2002)',            # non-hay digitization request; INTERPRETED from multiple fields
-            'please scan entire book for course reserves TAPS 1330 S01: Dance History'  # staff digitization request with no patron-info
+            '34 (2002)',                                                        # non-hay digitization request; INTERPRETED from multiple fields
+            'please scan entire book for course reserves TAPS 1330 S01: Dance History',  # staff digitization request with no patron-info
+            'HOLD FOR: Bbbbb Ppppppp (Alumni) email@domain.com'                 # source contains new-line-ish characters which halts (silently) GFA processing
             ]
         for ( index, item ) in enumerate( item_list):
             ( note, err ) = self.prsr.parse_patron_note( item )

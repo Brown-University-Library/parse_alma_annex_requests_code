@@ -172,10 +172,41 @@ class Parser():
                         pass
                     else:
                         patron_note = patron_note + '; ' + item
+        ## remove weird characters --------------
+        patron_note = patron_note.replace( '\n', '' )
+        ## return -------------------------------
         if patron_note == '':
             patron_note = 'no_note'
         log.debug( f', ``{patron_note}``' )
         return ( patron_note, err )
+
+    # def parse_patron_note( self, item ):
+    #     ( patron_note, err ) = ( None, None )
+    #     ## get possible note parts --------------
+    #     ( request_note, err ) = self.parse_element( item, 'requestNote' )
+    #     if err:
+    #         return ( patron_note, err )
+    #     ( part_to_digitize, err ) = self.parse_element( item, 'partToDigitize' )
+    #     if err:
+    #         return ( patron_note, err )
+    #     ( description, err ) = self.parse_element( item, 'description' )
+    #     if err:
+    #         return ( patron_note, err )
+    #     ## assemble note ------------------------
+    #     patron_note = ''
+    #     for item in [request_note, part_to_digitize, description]:
+    #         if item:
+    #             if patron_note == '':
+    #                 patron_note = item
+    #             else:
+    #                 if item in patron_note:
+    #                     pass
+    #                 else:
+    #                     patron_note = patron_note + '; ' + item
+    #     if patron_note == '':
+    #         patron_note = 'no_note'
+    #     log.debug( f', ``{patron_note}``' )
+    #     return ( patron_note, err )
 
     def parse_alma_pickup_library( self, item ):
         """ The `DIGITAL_REQUEST` string is mapped to give the GFA software an 'ED' or 'EH' GFA 'delivery-stop' code.
