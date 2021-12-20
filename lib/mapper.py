@@ -36,5 +36,6 @@ ALMA_LIBRARY_CODE_TO_GFA_LOCATION = {
     'HAY': 'QH',
     'ORWIG': 'QS',
     'ROCK': 'QS',
-    'SCI': 'QS'
+    'SCI': 'QS',
+    'SCIENCE': 'QS'
 }

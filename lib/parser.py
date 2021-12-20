@@ -94,6 +94,8 @@ class Parser():
         return ( gfa_delivery, err )
 
     def transform_parsed_alma_library_code( self, parsed_alma_library_code, gfa_delivery ):
+        """ X
+            Called by prepare_gfa_entry() """
         ( gfa_location, err ) = ( '', None )
         log.debug( f'parsed_alma_library_code, ``{parsed_alma_library_code}``; gfa_delivery, ``{gfa_delivery}``' )
         try:
@@ -232,7 +234,13 @@ class Parser():
         log.debug( f'interpreted_pickup_library, ``{interpreted_pickup_library}``' )
         return ( interpreted_pickup_library, err )
 
+    # def parse_alma_library_code( self, item ):
+    #     ( library_code, err ) = self.parse_element( item, 'libraryCode' )
+    #     log.debug( f'library_code, ``{library_code}``' )
+    #     return ( library_code, err )
+
     def parse_alma_library_code( self, item ):
+        log.debug( 'starting parse_alma_library_code()' )
         ( library_code, err ) = self.parse_element( item, 'libraryCode' )
         log.debug( f'library_code, ``{library_code}``' )
         return ( library_code, err )

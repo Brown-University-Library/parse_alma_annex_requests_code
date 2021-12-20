@@ -178,7 +178,7 @@ class ParserTest( unittest.TestCase ):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( items, err ) = self.prsr.make_item_list( all_text )
         self.assertEqual( bs4.element.ResultSet, type(items) )
-        self.assertEqual( 10, len(items) )
+        self.assertEqual( 11, len(items) )
         self.assertEqual( bs4.element.Tag, type(items[0]) )
 
     def test_parse_item_id(self):
@@ -201,7 +201,8 @@ class ParserTest( unittest.TestCase ):
             '',
             'Family medicine.',
             'My life / Isadora Duncan.',  # staff digitization request with no patron-info
-            'War in the Eastern seas, 1793-1815.'
+            'War in the Eastern seas, 1793-1815.',
+            "Annales de l'Institut Henri Poincaré. Analyse non linéaire."
             ]
         for ( index, item ) in enumerate( item_list):
             ( title, err ) = self.prsr.parse_item_title( item )
@@ -221,7 +222,8 @@ class ParserTest( unittest.TestCase ):
             '31236011508853',
             '31236090510895',
             '31236075035470',  # staff digitization request with no patron-info
-            '31236080544706'
+            '31236080544706',
+            "Chapter/Article Title Annales de l'Institut Henri Poincaré.; Chapter/Article Author On the weak solutions to the equations of a compressible heat conducting gas Chiordaroli, E. Feireisl, E. Kreml, O>; Start page 225; End page 243; Volume 32; Issue 1; Publication date 2015"  # sad but true
         ]
         for ( index, item ) in enumerate( item_list):
             ( item_barcode, err ) = self.prsr.parse_item_barcode( item )
@@ -257,7 +259,8 @@ class ParserTest( unittest.TestCase ):
             'test note D',
             '34 (2002)',                                                        # non-hay digitization request; INTERPRETED from multiple fields
             'please scan entire book for course reserves TAPS 1330 S01: Dance History',  # staff digitization request with no patron-info
-            'HOLD FOR: Bbbbb Ppppppp (Alumni) email@domain.com'                 # source contains new-line-ish characters which halts (silently) GFA processing
+            'HOLD FOR: Bbbbb Ppppppp (Alumni) email@domain.com',                # source contains new-line-ish characters which halts (silently) GFA processing
+            'no_note'
             ]
         for ( index, item ) in enumerate( item_list):
             ( note, err ) = self.prsr.parse_patron_note( item )
@@ -277,7 +280,8 @@ class ParserTest( unittest.TestCase ):
             'Rockefeller Library',
             'DIGITAL_REQUEST_NONHAY',   # non-hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
             'DIGITAL_REQUEST_HAY',      # staff digitization request with no patron-info; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
-            'Rockefeller Library'
+            'Rockefeller Library',
+            'Sciences Library'
             ]
         for ( index, item ) in enumerate( item_list):
             ( pickup_library, err ) = self.prsr.parse_alma_pickup_library( item )
@@ -297,7 +301,8 @@ class ParserTest( unittest.TestCase ):
             'ROCK',
             '',                     # non-hay digitization request
             '',                     # staff digitization request with no patron-info
-            'ROCK'
+            'ROCK',
+            'SCIENCE'
             ]
         for ( index, item ) in enumerate( item_list):
             ( alma_library_code, err ) = self.prsr.parse_alma_library_code( item )
@@ -397,6 +402,24 @@ class ParserTest( unittest.TestCase ):
         self.assertEqual( 'Family medicine.', gfa_entry[6] )
         self.assertEqual( datetime.datetime.now().strftime( '%a %b %d %Y' ), gfa_entry[7] )
         self.assertEqual( None, err )
+
+    def test_transform_parsed_alma_library_code(self):
+        """ Checks transform_parsed_alma_library_code() 
+            The two sent values are: 
+                - 'parsed_alma_library_code' -- the result of Parser.parse_alma_library_code()
+                - 'gfa_delivery' -- the result of Parser.transform_parsed_alma_pickup_library()
+        """
+        expected_A = 'QS'
+        (value_A, err) = self.prsr.transform_parsed_alma_library_code( 'ROCK', 'RO' )
+        self.assertEqual( expected_A, value_A )
+        #
+        expected_B = 'QH'
+        (value_B, err) = self.prsr.transform_parsed_alma_library_code( 'HAY', 'HA' )
+        self.assertEqual( expected_B, value_B )
+        #
+        expected_C = 'QS'
+        (value_C, err_C) = self.prsr.transform_parsed_alma_library_code( 'SCIENCE', 'SC' )
+        self.assertEqual( expected_C, value_C )
 
     ## end class ParserTest()
 

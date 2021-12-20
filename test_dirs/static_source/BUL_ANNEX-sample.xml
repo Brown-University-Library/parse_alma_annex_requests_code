@@ -388,4 +388,42 @@
     </xb:bibliographicInformation>
   </xb:rsExport>
 
+  <xb:rsExport>
+    <xb:requestType>PATRON_PHYSICAL</xb:requestType>
+    <xb:requestId>5929235860006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>Sciences Library</xb:library>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:permanent_call_number>QA300 .A62x</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>RKSTORAGE</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>Chapter/Article Title Annales de l'Institut Henri Poincaré.; Chapter/Article Author On the weak solutions to the equations of a compressible heat conducting gas Chiordaroli, E. Feireisl, E. Kreml, O&gt;; Start page 225; End page 243; Volume 32; Issue 1; Publication date 2015</xb:barcode>
+    <xb:title>Annales de l'Institut Henri Poincaré. Analyse non linéaire.</xb:title>
+    <xb:patronInfo>
+      <xb:patronName>Ddd, Ccc</xb:patronName>
+      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
+      <xb:patronEmail>constantine_dafermos@brown.edu</xb:patronEmail>
+      <xb:patronAddress>Brown University PO BOX F Applied Mathematics WorkDay Location - 182 George Street</xb:patronAddress>
+    </xb:patronInfo>
+    <xb:shipAddress>
+      <xb:city>Providence</xb:city>
+      <xb:country>USA</xb:country>
+      <xb:line1>Sciences Library</xb:line1>
+      <xb:line2>201 Thayer Street</xb:line2>
+      <xb:line3>Box I</xb:line3>
+      <xb:line4 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:line5 xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+      <xb:postalCode>2912</xb:postalCode>
+      <xb:stateProvince>RI</xb:stateProvince>
+    </xb:shipAddress>
+    <xb:libraryCode>SCIENCE</xb:libraryCode>
+    <xb:bibliographicInformation>
+      <xb:author>Institut Henri Poincaré.</xb:author>
+      <xb:issn>0294-1449</xb:issn>
+      <xb:placeOfPublication>Montrouge, France :</xb:placeOfPublication>
+      <xb:dateOfPublication>1984-</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
+
 </xb:rsExportList>
