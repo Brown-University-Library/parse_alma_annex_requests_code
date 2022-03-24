@@ -17,9 +17,9 @@
     <xb:itemId>2332679300006966</xb:itemId>
     <xb:title>Education.</xb:title>
     <xb:patronInfo>
-      <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
       <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
@@ -59,9 +59,9 @@
     <xb:itemId>23334087800006966</xb:itemId>
     <xb:title>Southern medical journal.</xb:title>
     <xb:patronInfo>
-      <xb:patronName>Mmmmmmmm, Mmm</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>mmm_mmmmmmmm@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
       <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
@@ -100,9 +100,9 @@
     <xb:itemId>23319705570006966</xb:itemId>
     <xb:title>Taiwan tian zhu jiao shi liao hui bian / Gu Weiying bian.</xb:title>
     <xb:patronInfo>
-      <xb:patronName>Nnnnnnnn, Rrrrrrr</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>rrrrrrr_nnnnnnnn@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
       <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
@@ -140,9 +140,9 @@
     <xb:itemId>2399323930006966</xb:itemId>
     <xb:title>Clinical engineering / edited by Yadin David [and others]</xb:title>
     <xb:patronInfo>
-      <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
       <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
@@ -182,9 +182,9 @@
     <xb:itemId>2331872080006966</xb:itemId>
     <xb:title>Native American spirituality : a critical reader / edited by Lee Irwin.</xb:title>
     <xb:patronInfo>
-      <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
       <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
@@ -229,9 +229,9 @@
       <xb:partToDigitize>Full text needed for fall course reserves: LITR0310T Thank you!</xb:partToDigitize>
     </xb:requestedInfo>
     <xb:patronInfo>
-      <xb:patronName>Kkkkkkk, Jjjjjjjj</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>jjjjjjjj_kkkkkkk@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
     </xb:patronInfo>
     <xb:shipAddress />
     <xb:digitizationDepartmentCode>DIGI_DEPT_INST</xb:digitizationDepartmentCode>
@@ -259,9 +259,9 @@
     <xb:mmsId>991008052689706966</xb:mmsId>
     <xb:itemId>2332679300006966</xb:itemId>
     <xb:patronInfo>
-      <xb:patronName>Ddddd, Bbbbbb</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>bbbbbb_ddddd@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
       <xb:patronAddress>Brown University PO BOX XYZ</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
@@ -306,9 +306,9 @@
       <xb:partToDigitize xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
     </xb:requestedInfo>
     <xb:patronInfo>
-      <xb:patronName>Aaaaaaa, Jjjjjjj</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>jjjjjjj_aaaaaaa@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
     </xb:patronInfo>
     <xb:shipAddress />
     <xb:digitizationDepartmentCode>DIGI_DEPT_INST</xb:digitizationDepartmentCode>
@@ -401,9 +401,9 @@
     <xb:barcode>Chapter/Article Title Annales de l'Institut Henri Poincaré.; Chapter/Article Author On the weak solutions to the equations of a compressible heat conducting gas Chiordaroli, E. Feireisl, E. Kreml, O&gt;; Start page 225; End page 243; Volume 32; Issue 1; Publication date 2015</xb:barcode>
     <xb:title>Annales de l'Institut Henri Poincaré. Analyse non linéaire.</xb:title>
     <xb:patronInfo>
-      <xb:patronName>Ddd, Ccc</xb:patronName>
+      <xb:patronName>Last, First</xb:patronName>
       <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
-      <xb:patronEmail>ccc_ddd@brown.edu</xb:patronEmail>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
       <xb:patronAddress>misc address</xb:patronAddress>
     </xb:patronInfo>
     <xb:shipAddress>
@@ -423,6 +423,34 @@
       <xb:issn>0294-1449</xb:issn>
       <xb:placeOfPublication>Montrouge, France :</xb:placeOfPublication>
       <xb:dateOfPublication>1984-</xb:dateOfPublication>
+    </xb:bibliographicInformation>
+  </xb:rsExport>
+
+  <xb:rsExport>
+    <xb:requestType>GENERAL_DIGITIZATION</xb:requestType>
+    <xb:requestId>6754134440006966</xb:requestId>
+    <xb:pickup>
+      <xb:library>Brown University</xb:library>
+      <xb:desk>Annex Digitization</xb:desk>
+    </xb:pickup>
+    <xb:operationalRecordinformation>
+      <xb:permanent_call_number>BF1 .P7</xb:permanent_call_number>
+      <xb:permanent_physical_location_code>STOR_FICHE</xb:permanent_physical_location_code>
+    </xb:operationalRecordinformation>
+    <xb:barcode>Volume 96; Issue 4; Publication Date 1989</xb:barcode>
+    <xb:title>The psychological review.</xb:title>
+    <xb:patronInfo>
+      <xb:patronName>Last, First</xb:patronName>
+      <xb:patronIdentifier>12345678901234</xb:patronIdentifier>
+      <xb:patronEmail>first_last@brown.edu</xb:patronEmail>
+    </xb:patronInfo>
+    <xb:shipAddress />
+    <xb:digitizationDepartmentCode>AnnexDig</xb:digitizationDepartmentCode>
+    <xb:bibliographicInformation>
+      <xb:author>American Psychological Association.</xb:author>
+      <xb:issn>0033-295X</xb:issn>
+      <xb:placeOfPublication>[Washington, D.C.] :</xb:placeOfPublication>
+      <xb:dateOfPublication>1894</xb:dateOfPublication>
     </xb:bibliographicInformation>
   </xb:rsExport>
 

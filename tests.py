@@ -178,7 +178,7 @@ class ParserTest( unittest.TestCase ):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( items, err ) = self.prsr.make_item_list( all_text )
         self.assertEqual( bs4.element.ResultSet, type(items) )
-        self.assertEqual( 11, len(items) )
+        self.assertEqual( 12, len(items) )
         self.assertEqual( bs4.element.Tag, type(items[0]) )
 
     def test_parse_item_id(self):
@@ -202,7 +202,8 @@ class ParserTest( unittest.TestCase ):
             'Family medicine.',
             'My life / Isadora Duncan.',  # staff digitization request with no patron-info
             'War in the Eastern seas, 1793-1815.',
-            "Annales de l'Institut Henri Poincaré. Analyse non linéaire."
+            "Annales de l'Institut Henri Poincaré. Analyse non linéaire.",
+            'The psychological review.'
             ]
         for ( index, item ) in enumerate( item_list):
             ( title, err ) = self.prsr.parse_item_title( item )
@@ -260,6 +261,7 @@ class ParserTest( unittest.TestCase ):
             '34 (2002)',                                                        # non-hay digitization request; INTERPRETED from multiple fields
             'please scan entire book for course reserves TAPS 1330 S01: Dance History',  # staff digitization request with no patron-info
             'HOLD FOR: Bbbbb Ppppppp (Alumni) email@domain.com',                # source contains new-line-ish characters which halts (silently) GFA processing
+            'no_note',
             'no_note'
             ]
         for ( index, item ) in enumerate( item_list):
