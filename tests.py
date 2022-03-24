@@ -8,7 +8,7 @@ Usage:
     - example: $ python3 ./tests.py ParserTest.test_prepare_gfa_entry__from_hay_digitization
 """
 
-import datetime, logging, os, sys, unittest
+import datetime, logging, os, shutil, sys, unittest
 import bs4
 
 sys.path.append( os.environ['ANX_ALMA__ENCLOSING_PROJECT_PATH'] )
