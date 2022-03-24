@@ -284,7 +284,8 @@ class ParserTest( unittest.TestCase ):
             'DIGITAL_REQUEST_NONHAY',   # non-hay digitization request; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
             'DIGITAL_REQUEST_HAY',      # staff digitization request with no patron-info; INTERPRETED -- actual source: `<xb:library>Brown University</xb:library>`
             'Rockefeller Library',
-            'Sciences Library'
+            'Sciences Library',
+            'DIGITAL_REQUEST_NONHAY'
             ]
         for ( index, item ) in enumerate( item_list):
             ( pickup_library, err ) = self.prsr.parse_alma_pickup_library( item )
