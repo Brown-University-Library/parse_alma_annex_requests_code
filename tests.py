@@ -306,7 +306,8 @@ class ParserTest( unittest.TestCase ):
             '',                     # non-hay digitization request
             '',                     # staff digitization request with no patron-info
             'ROCK',
-            'SCIENCE'
+            'SCIENCE',
+            ''
             ]
         for ( index, item ) in enumerate( item_list):
             ( alma_library_code, err ) = self.prsr.parse_alma_library_code( item )
