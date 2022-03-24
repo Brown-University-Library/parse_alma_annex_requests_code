@@ -224,7 +224,8 @@ class ParserTest( unittest.TestCase ):
             '31236090510895',
             '31236075035470',  # staff digitization request with no patron-info
             '31236080544706',
-            "Chapter/Article Title Annales de l'Institut Henri Poincaré.; Chapter/Article Author On the weak solutions to the equations of a compressible heat conducting gas Chiordaroli, E. Feireisl, E. Kreml, O>; Start page 225; End page 243; Volume 32; Issue 1; Publication date 2015"  # sad but true
+            "Chapter/Article Title Annales de l'Institut Henri Poincaré.; Chapter/Article Author On the weak solutions to the equations of a compressible heat conducting gas Chiordaroli, E. Feireisl, E. Kreml, O>; Start page 225; End page 243; Volume 32; Issue 1; Publication date 2015",  # sad but true
+            'Volume 96; Issue 4; Publication Date 1989'  # wrong but accurate
         ]
         for ( index, item ) in enumerate( item_list):
             ( item_barcode, err ) = self.prsr.parse_item_barcode( item )
@@ -235,7 +236,7 @@ class ParserTest( unittest.TestCase ):
         ( all_text, err ) = self.prsr.load_file( f'{TEST_DIRS_PATH}/static_source/BUL_ANNEX-sample.xml' )
         ( item_list, err ) = self.prsr.make_item_list( all_text )
         ( patron_name, err ) = self.prsr.parse_patron_name( item_list[0] )
-        self.assertEqual( 'Ddddd, Bbbbbb', patron_name )
+        self.assertEqual( 'Last, First', patron_name )
         self.assertEqual( None, err )
 
     def test_parse_patron_barcode(self):
